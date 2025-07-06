@@ -1,0 +1,47 @@
+.team-member-card {
+    padding: 0px 12px;
+    border-radius: 7px;
+    background-color: #fff;
+    margin: 0;
+}
+
+.team-member-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+}
+
+.team-member-card-header h4, p {
+    padding: 0;
+    margin: 0;
+}
+
+.team-member-card-header-details{
+    display: flex;
+    grid-gap: 10px;
+    align-items: center;
+}
+
+.team-member-card-header-details img{
+    width: 35px;
+    height: 35px;
+}
+
+.team-member-card-ongoing-badge {
+    color: #fff;
+    background-color: rgb(255, 0, 34);
+    padding: .25rem .75rem;
+    border-radius: 2px;
+    font-weight: 600;
+}
+
+.team-member-card-header-items{
+    display: flex;
+    justify-content: space-between;
+}
+
+.team-member-card-header-items p{
+    font-weight: 500;
+    font-size: 13px;
+}

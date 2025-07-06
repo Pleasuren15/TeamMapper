@@ -1,0 +1,36 @@
+.task-information-box {
+    margin-top: 10px;
+    padding: 10px 15px;
+    border-radius: 7px;
+    background-color: #fff;
+}
+
+.task-information-box-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-information-box-header img {
+    width: 15px;
+    height: 15px;
+}
+
+.task-information-box h4,
+h3,
+p {
+    margin: 1px 0px;
+}
+
+.task-information-box h4 {
+    font-size: small;
+    font-weight: 500;
+}
+
+.task-information-box h3 {
+    font-weight: 600;
+}
+
+.task-information-box p {
+    font-size: 14px;
+}

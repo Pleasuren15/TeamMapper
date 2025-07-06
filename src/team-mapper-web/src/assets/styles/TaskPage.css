@@ -1,0 +1,81 @@
+.task-content {
+  display: grid;
+  grid-template-columns: 1fr 6fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  justify-items: stretch;
+  align-items: stretch;
+  justify-content: start;
+  align-content: start;
+  grid-auto-columns: 0fr;
+}
+
+.task-content-navigation-item{
+    display: flex;
+    list-style: none;
+    align-items: center;
+    padding-left: 1rem;
+}
+
+.task-content-navigation-item img{
+    width: 20px;
+    height: 20px;
+}
+
+.task-content-navigation-item a {
+    text-decoration: none;
+    color: #000;
+    padding: 0.3rem .3rem;
+    display: block;
+}
+
+.task-content-visualisation {
+    background-color: #eeebeb;
+    padding: 0 1rem;
+}
+
+.task-content-visualisation h2{
+    font-weight: 600;
+    margin-bottom: 0.3em; /* or 0 if you want no space */
+}
+
+.task-content-visualisation p {
+  font-size: 15px;
+  font-weight: 400;
+  color: #666;
+  margin-top: 0.3em; /* or 0 if you want no space */
+}
+
+.task-information-container{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 1rem 1rem;
+}
+
+.task-content-visualisation-content {
+}
+
+.task-content-visualisation-content-header{
+  display: flex;
+  grid-gap: 1rem .5rem;
+  margin: .5rem 0;
+}
+
+/* CSS */
+.task-content-visualisation-content-header button {
+  background-image: linear-gradient(90deg,#AF40FF, #5B42F3 50%,#00DDEB);
+  border: 0;
+  border-radius: 5px;
+  color: #fff;
+  justify-content: center;
+  padding: 7px 7px;
+  text-decoration: none;
+  cursor: pointer; 
+}
+
+
+.task-content-visualisation-content h4{
+    font-size: small;
+    font-weight: 600;
+}

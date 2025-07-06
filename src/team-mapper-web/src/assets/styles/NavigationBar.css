@@ -1,0 +1,58 @@
+.navigation-bar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-content: stretch;
+    margin: 0;
+    background-color: aqua;
+    padding: 0 1rem;
+}
+
+.navigation-bar-logo{
+    display: flex;
+    gap: 0;
+    align-items: center;
+}
+
+.navigation-bar-logo h3{
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    margin: 0;
+}
+
+.navigation-bar-logo img{
+    width: 35px;
+    height: 35px;
+}
+
+.navigation-bar-logo img:hover{
+    cursor: pointer;
+    animation: spin 10s linear
+}
+
+.navigation-bar-notifications{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.navigation-bar-notifications img{
+    width: 25px;
+    height: 25px;
+    margin: auto 2.5px;
+}
+
+.navigation-bar-notifications img:hover{
+    cursor: pointer;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
