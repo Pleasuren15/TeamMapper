@@ -4,6 +4,38 @@
     border-radius: 7px;
 }
 
+.navigation-bar-logo{
+    display: flex;
+    gap: 0;
+    align-items: center;
+}
+
+.navigation-bar-logo h3{
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    margin: 0;
+}
+
+.navigation-bar-logo img{
+    width: 35px;
+    height: 35px;
+}
+
+.navigation-bar-logo img:hover{
+    cursor: pointer;
+    animation: spin 10s linear
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .task-visualisation-header {
     display: flex;
     justify-content: space-between;

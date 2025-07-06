@@ -8,6 +8,9 @@ import TaskInformation from '../common/TaskInformation';
 import TaskVisualisation from './TaskVisualisation';
 import TeamView from './TeamView';
 import { useState } from 'react';
+import logo from '../../assets/icons/logo.svg';
+import alert from '../../assets/icons/alert.svg';
+import question from '../../assets/icons/question.svg';
 
 function TaskPage() {
   const [isTeamViewVisible, setIsTeamViewVisible] = useState(true);
@@ -15,6 +18,9 @@ function TaskPage() {
   return (
     <div className="task-content">
       <div className="task-content-navigation">
+        <h3>
+          <img src={logo} /> &nbsp; TeamMapper
+        </h3>
         <ul>
           <li className="task-content-navigation-item">
             <img src={dashboard} alt="Dashboard Icon" />

@@ -10,11 +10,41 @@
   grid-auto-columns: 0fr;
 }
 
+.task-content-navigation h3{
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    margin-top: 17px;
+}
+
+.task-content-navigation img{
+    width: 35px;
+    height: 35px;
+}
+
+.task-content-navigation img:hover{
+    cursor: pointer;
+    animation: spin 10s linear
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .task-content-navigation-item{
     display: flex;
     list-style: none;
     align-items: center;
     padding-left: 1rem;
+}
+
+.task-content-navigation-item:hover{
+    padding-left: 2rem;
 }
 
 .task-content-navigation-item img{
