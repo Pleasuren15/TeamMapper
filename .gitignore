@@ -1,0 +1,8 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/src/.vs/team-mapper-database
+/src/team-mapper-database/.vs/team-mapper-database
+/src/team-mapper-database/bin/Debug
+/src/team-mapper-database/obj/Debug
