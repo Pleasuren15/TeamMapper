@@ -7,7 +7,7 @@
   align-items: stretch;
   justify-content: start;
   align-content: start;
-  grid-auto-columns: 0fr;
+  height: 100vh;
 }
 
 .task-content-navigation h3{

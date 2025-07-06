@@ -6,6 +6,9 @@ const users = [
     { name: "Pleasure", tasks: 5 },
     { name: "dsad", tasks: 7 },
     { name: "Cate", tasks: 5 },
+    { name: "dsad", tasks: 10 },
+    { name: "dsad", tasks: 7 },
+    { name: "Cate", tasks: 5 },
     { name: "dsad", tasks: 1 },
 ];
 
