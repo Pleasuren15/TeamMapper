@@ -10,7 +10,7 @@ import TeamView from './TeamView';
 import { useState } from 'react';
 
 function TaskPage() {
-  const [isTeamViewVisible, setIsTeamViewVisible] = useState(false);
+  const [isTeamViewVisible, setIsTeamViewVisible] = useState(true);
 
   return (
     <div className="task-content">
