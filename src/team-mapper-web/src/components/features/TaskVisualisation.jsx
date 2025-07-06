@@ -1,5 +1,6 @@
 import '../../assets/styles/TaskVisualisation.css'
 import refresh from '../../assets/icons/refresh.svg'
+import { getRandomPosition, getRandomColor } from '../../utils/taskvisualizerhelper'
 
 const users = [
     { name: "Pleasure", tasks: 5 },
@@ -7,21 +8,6 @@ const users = [
     { name: "Cate", tasks: 5 },
     { name: "dsad", tasks: 1 },
 ];
-
-const getRandomPosition = () => ({
-    x: 100 + Math.random() * 900,
-    y: 50 + Math.random() * 300
-});
-
-function getRandomColor() {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-}
-
 
 function TaskVisualisation() {
     const positions = users.map(() => getRandomPosition());
@@ -66,7 +52,7 @@ function TaskVisualisation() {
                         return (
                             <div
                                 key={user.name}
-                                className="circle"
+                                className="task-visualizer-circle"
                                 style={{
                                     position: "absolute",
                                     left: pos.x - size / 2,

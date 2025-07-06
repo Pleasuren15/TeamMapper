@@ -1,45 +1,47 @@
 .task-visualisation {
-    padding: 10px 15px;
     background-color: #ffffff;
     border-radius: 7px;
+    padding-bottom: 7px;
 }
 
-.navigation-bar-logo{
+.navigation-bar-logo {
     display: flex;
     gap: 0;
     align-items: center;
 }
 
-.navigation-bar-logo h3{
+.navigation-bar-logo h3 {
     display: flex;
     align-items: center;
     font-weight: 600;
     margin: 0;
 }
 
-.navigation-bar-logo img{
+.navigation-bar-logo img {
     width: 35px;
     height: 35px;
 }
 
-.navigation-bar-logo img:hover{
+.navigation-bar-logo img:hover {
     cursor: pointer;
     animation: spin 10s linear
 }
 
 @keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .task-visualisation-header {
     display: flex;
     justify-content: space-between;
-    margin: 8px 0;
+    margin: 15px 15px;
+    padding-top: 15px;
 }
 
 .task-visualisation-header h4,
@@ -64,7 +66,7 @@ p {
 
 .task-visualisation-content {
     background-color: #eeebeb;
-    padding: 10px 15px;
+    margin: 10px 15px;
     border-radius: 7px;
     min-height: 400px;
 }

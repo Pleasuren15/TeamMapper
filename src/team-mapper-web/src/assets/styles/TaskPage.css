@@ -41,10 +41,12 @@
     list-style: none;
     align-items: center;
     padding-left: 1rem;
+    transition: 1s;
 }
 
 .task-content-navigation-item:hover{
     padding-left: 2rem;
+    transition: 1s;
 }
 
 .task-content-navigation-item img{
