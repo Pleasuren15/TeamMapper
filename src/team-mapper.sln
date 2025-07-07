@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "team-mapper-api", "team-map
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "team-mapper-infrastructure", "team-mapper-infrastructure\team-mapper-infrastructure.csproj", "{3E75E0E8-0CFA-4A93-9B6B-0E9122811EE2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "team-mapper-domain", "team-mapper-domain\team-mapper-domain.csproj", "{43A6AFCB-DF1A-498A-90BB-4DD90EB9F570}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{3E75E0E8-0CFA-4A93-9B6B-0E9122811EE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E75E0E8-0CFA-4A93-9B6B-0E9122811EE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E75E0E8-0CFA-4A93-9B6B-0E9122811EE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43A6AFCB-DF1A-498A-90BB-4DD90EB9F570}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43A6AFCB-DF1A-498A-90BB-4DD90EB9F570}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43A6AFCB-DF1A-498A-90BB-4DD90EB9F570}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43A6AFCB-DF1A-498A-90BB-4DD90EB9F570}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
