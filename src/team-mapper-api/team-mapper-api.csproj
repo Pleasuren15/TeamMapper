@@ -7,6 +7,8 @@
     <RootNamespace>team_mapper_api</RootNamespace>
     <UserSecretsId>2492bfa6-a74f-4a74-995d-d904d43bb5ae</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,0 +1,17 @@
+services:
+  team-mapper-api:
+    image: ${DOCKER_REGISTRY-}teammapperapi
+    build:
+      context: .
+      dockerfile: src/team-mapper-api/Dockerfile
+    ports:
+     - 5001:5001
+
+  team-mapper-web:
+    build:
+      context: .
+      dockerfile: src/team-mapper/Dockerfile
+    depends_on:
+      - team-mapper-api
+    ports:
+      - 3001:3001
