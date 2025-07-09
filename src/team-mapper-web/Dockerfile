@@ -11,6 +11,7 @@ COPY src/team-mapper-web/package.json  ./
 RUN npm config set strict-ssl false && npm install
 
 # Copy application source code
+COPY src/team-mapper-web/package-lock.json  ./
 COPY src/team-mapper-web/public/ ./public
 COPY src/team-mapper-web/src/ ./src
 
