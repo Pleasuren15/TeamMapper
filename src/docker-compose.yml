@@ -1,0 +1,10 @@
+services:
+  team-mapper-api:
+    build:
+      context: ..
+      dockerfile: src/team-mapper-api/Dockerfile
+
+  team-mapper-web:
+    build:
+      context: ..
+      dockerfile: src/team-mapper-web/Dockerfile

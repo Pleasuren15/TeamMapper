@@ -18,3 +18,7 @@
 /src/team-mapper-infrastructure/bin/Debug/net9.0
 /src/.vs/ProjectEvaluation
 /src/obj/Docker
+/src/bin/Debug
+/src/obj/Debug
+*.dbmdl
+*.jfm
