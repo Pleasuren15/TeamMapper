@@ -2,10 +2,6 @@
 
 namespace team_mapper_infrastructure.Infrastructure;
 
-public class AppDbContext : DbContext
+public class AppDbContext(DbContextOptions options) : DbContext(options)
 {
-    public AppDbContext(DbContextOptions options) : base(options)
-    {
-
-    }
 }
