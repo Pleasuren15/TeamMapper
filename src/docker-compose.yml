@@ -3,6 +3,11 @@ services:
     build:
       context: ..
       dockerfile: src/team-mapper-api/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=5001
+    ports:
+      - 5001:5001
 
   team-mapper-web:
     build:
