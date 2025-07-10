@@ -5,13 +5,15 @@ FROM node:18-alpine
 WORKDIR /app
 
 # Copy package files first to leverage Docker cache
-COPY package.json package-lock.json ./
+COPY src/team-mapper-web/package.json  ./
+
 # Install dependencies, disable SSL strict mode for npm
 RUN npm config set strict-ssl false && npm install
 
 # Copy application source code
-COPY public/ ./public
-COPY src/ ./src
+COPY src/team-mapper-web/package-lock.json  ./
+COPY src/team-mapper-web/public/ ./public
+COPY src/team-mapper-web/src/ ./src
 
 # Expose port 3000 for the application
 EXPOSE 3000
