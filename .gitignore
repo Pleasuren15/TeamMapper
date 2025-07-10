@@ -22,3 +22,7 @@
 /src/obj/Debug
 *.dbmdl
 *.jfm
+/test/integration-tests/team-mapper-api-integration-tests-docker/bin/Debug/net9.0
+/test/integration-tests/team-mapper-api-integration-tests-docker/obj
+/test/unit-tests/team-mapper-api-unit-tests/bin/Debug/net9.0
+/test/unit-tests/team-mapper-api-unit-tests/obj

@@ -1,0 +1,21 @@
+services:
+  team-mapper-api:
+    build:
+      context: ../../../
+      dockerfile: src/team-mapper-api/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=5001
+    ports:
+      - 5001:5001
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    networks:
+      - team-mapper-network
+
+networks:
+  team-mapper-network:
+    driver: bridge
