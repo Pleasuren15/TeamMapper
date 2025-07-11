@@ -15,8 +15,11 @@ COPY src/team-mapper-web/package-lock.json  ./
 COPY src/team-mapper-web/public/ ./public
 COPY src/team-mapper-web/src/ ./src
 
-# Expose port 3000 for the application
-EXPOSE 3000
+# Set the port environment variable
+ENV PORT=3001w
+
+# Expose port 3001 for the application
+EXPOSE 3001
 
 # Command to start the application using npm start
 CMD ["npm", "start"]
