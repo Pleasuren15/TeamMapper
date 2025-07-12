@@ -23,3 +23,7 @@ EXPOSE 3001
 
 # Command to start the application using npm start
 CMD ["npm", "start"]
+
+# Add healthcheck instruction
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+  CMD curl --fail http://localhost:3001/health || exit 1
