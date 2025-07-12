@@ -11,8 +11,8 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["src/team-mapper-api/team-mapper-api.csproj", "src/team-mapper-api/"]
 COPY ["src/team-mapper-infrastructure/team-mapper-infrastructure.csproj", "src/team-mapper-infrastructure/"]
-RUN dotnet nuget update source nuget.org --source https://api.nuget.org/v3/index.json
-RUN dotnet restore "./src/team-mapper-api/team-mapper-api.csproj"
+# RUN dotnet nuget add source https://api.nuget.org/v3/index.json --name nuget.org --configfile /tmp/NuGet.Config || true
+# RUN dotnet restore "./src/team-mapper-api/team-mapper-api.csproj" --disable-parallel --no-cache
 COPY . .
 WORKDIR "/src/src/team-mapper-api"
 RUN dotnet build "./team-mapper-api.csproj" -c $BUILD_CONFIGURATION -o /app/build
@@ -27,3 +27,7 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "team-mapper-api.dll"]
+
+# Add healthcheck instruction
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+  CMD curl --fail http://localhost:8080/health || exit 1

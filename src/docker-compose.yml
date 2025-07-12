@@ -13,3 +13,5 @@ services:
     build:
       context: ..
       dockerfile: src/team-mapper-web/Dockerfile
+    ports:
+      - 3001:3001
