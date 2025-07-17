@@ -1,3 +1,4 @@
+using Serilog;
 using team_mapper_infrastructure.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,7 +6,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSqlServer<AppDbContext>(builder.Configuration["ConnectionStrings:TeamMapperDb"])
-    .AddHealthChecks();
+                .AddHealthChecks();
+
+// Add Serilog
+builder.Host.UseSerilog((context, configuration) =>
+    configuration.ReadFrom.Configuration(context.Configuration));
+
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
@@ -30,5 +36,8 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+app.UseSerilogRequestLogging();
 app.MapHealthChecks("/health");
+app.UseHttpsRedirection();
+
 await app.RunAsync();
