@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using team_mapper_infrastructure.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -33,5 +34,8 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+app.UseSerilogRequestLogging();
 app.MapHealthChecks("/health");
+app.UseHttpsRedirection();
+
 await app.RunAsync();
