@@ -6,8 +6,8 @@ namespace team_mapper_domain.Models;
 
 public class Task
 {
-    [JsonPropertyName(nameof(Id))]
-    public Guid Id { get; set; }
+    [JsonPropertyName(nameof(TaskId))]
+    public Guid TaskId { get; set; }
 
     [Required]
     [JsonPropertyName(nameof(Description))]

@@ -15,3 +15,18 @@ services:
       dockerfile: src/team-mapper-web/Dockerfile
     ports:
       - 3001:3001
+
+  # Server=localhost,1433;User Id=sa;Password=YourStrong!Passw0rd;Trusted_Connection=True;
+  team-mapper-database:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "YourStrong!Passw0rd"
+    ports:
+      - "1433:1433"
+    healthcheck:
+      test: [ "CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "YourStrong!Passw0rd", "-Q", "SELECT 1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+

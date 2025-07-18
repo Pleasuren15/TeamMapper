@@ -1,16 +1,17 @@
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 using team_mapper_infrastructure.Infrastructure;
+using team_mapper_infrastructure.RepositoryPattern;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSqlServer<AppDbContext>(builder.Configuration["ConnectionStrings:TeamMapperDb"])
-                .AddHealthChecks();
 
-// Add Serilog
-builder.Host.UseSerilog((context, configuration) =>
-    configuration.ReadFrom.Configuration(context.Configuration));
+builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("TeamMapperDb")));
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<TaskService>();
 
 builder.Services.AddCors(options =>
 {
