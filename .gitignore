@@ -28,3 +28,4 @@
 /test/unit-tests/team-mapper-api-unit-tests/obj
 src/team-mapper-web/package-lock.json
 /test/unit-tests/team-mapper-database-unit-tests/obj
+/test/unit-tests/team-mapper-database-unit-tests/bin/Debug/net9.0
