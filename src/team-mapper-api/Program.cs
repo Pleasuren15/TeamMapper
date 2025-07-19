@@ -1,6 +1,4 @@
 using Serilog;
-using team_mapper_application;
-using team_mapper_application.Interfaces;
 using team_mapper_infrastructure.Infrastructure;
 using team_mapper_infrastructure.RepositoryPattern;
 
@@ -8,10 +6,7 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-//builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-//builder.Services.AddScoped<TaskService>();
-//builder.Services.AddScoped<ITaskService, TaskService>();
-//builder.Services.AddScoped<ITaskManager, TaskManager>();
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
 builder.Services.AddSqlServer<ApplicationDbContext>(builder.Configuration["ConnectionStrings:TeamMapperDb"])
                 .AddHealthChecks();
@@ -22,7 +17,7 @@ builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
     {
-        _ = policy.AllowAnyOrigin()
+        policy.AllowAnyOrigin()
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
