@@ -1,28 +1,34 @@
-using Microsoft.EntityFrameworkCore;
 using Serilog;
+using team_mapper_application;
+using team_mapper_application.Interfaces;
 using team_mapper_infrastructure.Infrastructure;
 using team_mapper_infrastructure.RepositoryPattern;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+//builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+//builder.Services.AddScoped<TaskService>();
+//builder.Services.AddScoped<ITaskService, TaskService>();
+//builder.Services.AddScoped<ITaskManager, TaskManager>();
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("TeamMapperDb")));
+builder.Services.AddSqlServer<ApplicationDbContext>(builder.Configuration["ConnectionStrings:TeamMapperDb"])
+                .AddHealthChecks();
 builder.Services.AddHealthChecks();
+builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
 
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
     {
-        policy.AllowAnyOrigin()
+        _ = policy.AllowAnyOrigin()
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
 });
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

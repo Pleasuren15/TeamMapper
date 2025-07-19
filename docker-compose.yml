@@ -34,8 +34,7 @@ services:
     ports:
       - 1433:1433
     volumes:
-      - ./database-tools/database-tools/create-database.sql:/var/opt/mssql/database-tools/create-database.sql
-      - ./database-tools/init.sh:/usr/src/app/init.sh
+      - "./database-tools/init.sh:/usr/src/app/init.sh"
     entrypoint: ["/bin/bash", "/usr/src/app/init.sh"]
     healthcheck:
       test: [ "CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "YourStrong!Passw0rd", "-Q", "SELECT 1" ]
