@@ -20,7 +20,6 @@ public class TaskManager(ITaskService taskService, ILogger<TaskManager> logger) 
         {
             _logger.LogError(exception.Message);
             throw;
-
         }
         finally
         {

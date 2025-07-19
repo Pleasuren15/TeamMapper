@@ -1,19 +1,27 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using team_mapper_infrastructure.Infrastructure;
 
 namespace team_mapper_infrastructure.RepositoryPattern;
 
-public class Repository<T>(DbContext context) : IRepository<T> where T : class
+public class Repository<T>(ApplicationDbContext context, ILogger<Repository<T>> logger) : IRepository<T> where T : class
 {
-    protected readonly DbContext _context = context;
+    protected readonly ApplicationDbContext _context = context;
     protected readonly DbSet<T> _dbSet = context.Set<T>();
+    private readonly ILogger<Repository<T>> _logger = logger;
+
     public async Task<IEnumerable<T>> GetAllAsync()
     {
-        return await _dbSet.ToListAsync();
+        _logger.LogInformation("GetAllAsync Start");
+        var results = await _dbSet.ToListAsync();
+        _logger.LogInformation("GetAllAsync End: Count {@Count}", results.Count);
+        return results;
     }
 
     public async Task<T> GetByIdAsync(Guid id)
     {
-        return await _dbSet.FindAsync(id);
+        var results = await _dbSet.FindAsync(id);
+        return results!;
     }
 
     public async Task AddAsync(T entity)
