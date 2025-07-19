@@ -8,4 +8,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\team-mapper-domain\team-mapper-domain.csproj" />
+    <ProjectReference Include="..\team-mapper-infrastructure\team-mapper-infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
