@@ -1,11 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using NSubstitute;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using team_mapper_api.Endpoints.Tasks;
 using team_mapper_application;
 using team_mapper_application.Interfaces;
