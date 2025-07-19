@@ -1,0 +1,45 @@
+services:
+  team-mapper-api:
+    build:
+      context: .
+      dockerfile: src/team-mapper-api/Dockerfile
+    depends_on:
+      - team-mapper-database
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=5001
+    ports:
+      - 5001:5001
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    env_file:
+      - .env
+
+  team-mapper-web:
+    build:
+      context: .
+      dockerfile: src/team-mapper-web/Dockerfile
+    ports:
+      - 3001:3001
+
+  # Server=localhost,1433;Database=TeamMapper;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True
+  team-mapper-database:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: "YourStrong!Passw0rd"
+    ports:
+      - 1433:1433
+    volumes:
+      - ./database-tools/database-tools/create-database.sql:/var/opt/mssql/database-tools/create-database.sql
+      - ./database-tools/init.sh:/usr/src/app/init.sh
+    entrypoint: ["/bin/bash", "/usr/src/app/init.sh"]
+    healthcheck:
+      test: [ "CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "YourStrong!Passw0rd", "-Q", "SELECT 1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+

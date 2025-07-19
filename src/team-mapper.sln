@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "team-mapper-domain", "team-
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "team-mapper-application", "team-mapper-application\team-mapper-application.csproj", "{8C76CDB4-B5A6-4783-86C1-141A26E6BCE5}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{81DDED9D-158B-E303-5F62-77A2896D2A5A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "team-mapper-api-unit-tests", "..\test\unit-tests\team-mapper-api-unit-tests\team-mapper-api-unit-tests.csproj", "{E0CCE27A-359C-4A0C-B8EE-5A216B0F0B10}"
@@ -24,6 +22,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{9707812F-6E2D-4DDE-830E-B0A6AD276833}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "team-mapper-database-unit-tests", "..\test\unit-tests\team-mapper-database-unit-tests\team-mapper-database-unit-tests.csproj", "{211CBA9D-CB9D-4B3B-8BC3-08C00C9AEE67}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "..\docker-compose.dcproj", "{81DDED9D-158B-E303-5F62-77A2896D2A5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,10 +53,6 @@ Global
 		{8C76CDB4-B5A6-4783-86C1-141A26E6BCE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C76CDB4-B5A6-4783-86C1-141A26E6BCE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C76CDB4-B5A6-4783-86C1-141A26E6BCE5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E0CCE27A-359C-4A0C-B8EE-5A216B0F0B10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E0CCE27A-359C-4A0C-B8EE-5A216B0F0B10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0CCE27A-359C-4A0C-B8EE-5A216B0F0B10}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -69,6 +65,10 @@ Global
 		{211CBA9D-CB9D-4B3B-8BC3-08C00C9AEE67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{211CBA9D-CB9D-4B3B-8BC3-08C00C9AEE67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{211CBA9D-CB9D-4B3B-8BC3-08C00C9AEE67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
