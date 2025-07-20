@@ -32,3 +32,5 @@ src/team-mapper-web/package-lock.json
 /src/.vs/CopilotSnapshots/20C997C7EC3D174AAFE88613C9CCBAA5
 /obj
 /bin/Debug
+/test/team-mapper-shared-utilities/obj
+/test/team-mapper-shared-utilities/bin/Debug/net9.0

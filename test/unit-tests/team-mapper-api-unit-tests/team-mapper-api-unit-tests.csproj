@@ -18,6 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\src\team-mapper-api\team-mapper-api.csproj" />
+    <ProjectReference Include="..\..\team-mapper-shared-utilities\team-mapper-shared-utilities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="NUnit.Framework" />
   </ItemGroup>
 

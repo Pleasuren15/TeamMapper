@@ -13,7 +13,7 @@ public class TaskManager(ITaskService taskService, ILogger<TaskManager> logger) 
         try
         {
             _logger.LogInformation("GetAllTasksAsync Start: CorrelationId {@CorrelationId}", correlationId);
-            var tasks = await _taskService.GetAllTasksAsync();
+            var tasks = await _taskService.GetAllTasksAsync(correlationId: correlationId);
             return tasks;
         }
         catch (Exception exception)
