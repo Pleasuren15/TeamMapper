@@ -2,5 +2,5 @@
 
 public interface ITaskService
 {
-    Task<IEnumerable<team_mapper_domain.Models.Task>> GetAllTasksAsync();
+    Task<IEnumerable<team_mapper_domain.Models.Task>> GetAllTasksAsync(Guid correlationId);
 }
