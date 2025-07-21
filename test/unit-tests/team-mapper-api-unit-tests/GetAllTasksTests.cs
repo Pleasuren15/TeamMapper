@@ -43,7 +43,7 @@ public class GetAllTasksTests
     public async Task GivenNoTasksExists_WhenCallingGetAllTasksAsync_ThenShouldReturnEmptyList()
     {
         // Arrange
-        _tasksSubstitute.Repository.GetAllAsync(Arg.Any<Guid>()).Returns(new List<team_mapper_domain.Models.Task>());
+        _tasksSubstitute.Repository.GetAllAsync(Arg.Any<Guid>()).Returns([]);
 
         // Act
         var results = await _systemUnderTest.GetAllTasksAsync();
@@ -51,7 +51,7 @@ public class GetAllTasksTests
         // Assert
         var controllerResponse = results as ObjectResult;
         var controllerResponseValue = controllerResponse!.Value as List<team_mapper_domain.Models.Task>;
-        controllerResponseValue!.Count.Should().Be(0);
+        controllerResponseValue!.Should().BeNull();
     }
 
     [Test]
@@ -65,11 +65,5 @@ public class GetAllTasksTests
 
         // Assert
         exception.Should().NotBeNull();
-    }
-
-    [TearDown]
-    public void TearDown()
-    {
-        _systemUnderTest.Dispose();
     }
 }

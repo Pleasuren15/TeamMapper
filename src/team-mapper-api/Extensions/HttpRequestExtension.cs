@@ -9,8 +9,7 @@ public static class HttpRequestExtension
     /// <returns></returns>
     public static Guid GetCorrelationId(this HttpRequest httpRequest)
     {
-        var correlationId = Guid.Empty;
-        if (Guid.TryParse(httpRequest.Headers["X-Correlation-ID"], out correlationId))
+        if (Guid.TryParse(httpRequest.Headers["X-Correlation-ID"], out Guid _))
         {
             return Guid.Empty;
         }

@@ -18,7 +18,7 @@ public class TaskManager(ITaskService taskService, ILogger<TaskManager> logger) 
         }
         catch (Exception exception)
         {
-            _logger.LogError(exception.Message);
+            _logger.LogError("Error Message {@Message}", exception.Message);
             throw;
         }
         finally
