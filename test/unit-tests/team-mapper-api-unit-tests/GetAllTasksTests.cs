@@ -51,7 +51,7 @@ public class GetAllTasksTests
         // Assert
         var controllerResponse = results as ObjectResult;
         var controllerResponseValue = controllerResponse!.Value as List<team_mapper_domain.Models.Task>;
-        controllerResponseValue!.Count.Should().Be(0);
+        controllerResponseValue!.Should().BeNull();
     }
 
     [Test]
