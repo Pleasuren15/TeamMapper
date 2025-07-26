@@ -4,7 +4,7 @@ using NSubstitute;
 using NSubstitute.ExceptionExtensions;
 using team_mapper_api.Endpoints.Tasks;
 using team_mapper_shared_utilities.ResponseFactories;
-using team_mapper_shared_utilities.Stubs;
+using team_mapper_shared_utilities.Substitutes;
 using team_mapper_shared_utilities.SystemUnderTests;
 
 namespace team_mapper_api_unit_tests;

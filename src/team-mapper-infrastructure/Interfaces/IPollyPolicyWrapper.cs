@@ -4,5 +4,6 @@ namespace team_mapper_infrastructure.Interfaces;
 
 public interface IPollyPolicyWrapper
 {
-    ResiliencePipeline Policy { get; set; }
+
+    Task<T> ExecuteWithPollyRetryPolicyAsync<E, T>(Func<Task<T>> func) where E : Exception;
 }

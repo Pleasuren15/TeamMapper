@@ -19,14 +19,11 @@ public class Repository<T>(
     {
         _logger.LogInformation("GetAllAsync(Repository) Start: CorrelationId {@CorrelationId}", correlationId);
 
-        var results = await _pollyPolicyWrapper.Policy.ExecuteAsync(async (_) =>
-        {
-            var results = await _dbSet.AsNoTracking()
-                                    .ToListAsync(cancellationToken: _);
-            return results;
-        });
+        var results = await _pollyPolicyWrapper.ExecuteWithPollyRetryPolicyAsync<Exception, IEnumerable<T>>(
+            async () => await _dbSet.AsNoTracking()
+                                    .ToListAsync<T>());
 
-        _logger.LogInformation("GetAllAsync(Repository) End: CorrelationId {@CorrelationId} Count {@Count}", correlationId, results.Count);
+        _logger.LogInformation("GetAllAsync(Repository) End: CorrelationId {@CorrelationId} Count {@Count}", correlationId, results.Count());
         return results;
     }
 

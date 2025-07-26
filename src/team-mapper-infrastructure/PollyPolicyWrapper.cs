@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using Polly;
 using team_mapper_infrastructure.Interfaces;
 
-namespace team_mapper_application;
+namespace team_mapper_infrastructure;
 
 public class PollyPolicyWrapper : IPollyPolicyWrapper
 {
@@ -17,20 +17,32 @@ public class PollyPolicyWrapper : IPollyPolicyWrapper
         _logger = logger;
 
         var maxRetryNumber = Convert.ToInt32(_configuration["PollyPolicy:AttemptNumber"]);
-        Policy = new ResiliencePipelineBuilder()
-                 .AddRetry(new Polly.Retry.RetryStrategyOptions()
-                 {
-                     MaxRetryAttempts = maxRetryNumber,
-                     Delay = TimeSpan.Zero,
-                     OnRetry = retryArguments =>
-                     {
-                         _logger.LogWarning(
-                             "Retrying operation {@Operation}, attempt {@Attempt})",
-                             retryArguments.Context.OperationKey,
-                             retryArguments.AttemptNumber);
+        Policy = CreateResiliencePipeline();
+    }
 
-                         return ValueTask.CompletedTask;
-                     }
-                 }).Build();
+    public async Task<T> ExecuteWithPollyRetryPolicyAsync<E, T>(Func<Task<T>> func) where E : Exception
+    {
+        var results = await Policy.ExecuteAsync(async (CancellationToken) => await func());
+        return results;
+    }
+
+    private ResiliencePipeline CreateResiliencePipeline()
+    {
+        var maxRetryNumber = Convert.ToInt32(_configuration["PollyPolicy:AttemptNumber"]);
+        return new ResiliencePipelineBuilder()
+            .AddRetry(new Polly.Retry.RetryStrategyOptions()
+            {
+                MaxRetryAttempts = maxRetryNumber,
+                Delay = TimeSpan.Zero,
+                OnRetry = retryArguments =>
+                {
+                    _logger.LogWarning(
+                        "Retrying operation {@Operation}, attempt {@Attempt})",
+                        retryArguments.Context.OperationKey,
+                        retryArguments.AttemptNumber);
+                    return ValueTask.CompletedTask;
+                }
+            })
+            .Build();
     }
 }
