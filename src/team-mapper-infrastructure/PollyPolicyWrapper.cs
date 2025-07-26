@@ -1,24 +1,24 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Polly;
-using team_mapper_application.Interfaces;
+using team_mapper_infrastructure.Interfaces;
 
 namespace team_mapper_application;
 
-public class PollyPolicyWrapper<T> : IPollyPolicyWrapper<T> where T : class
+public class PollyPolicyWrapper : IPollyPolicyWrapper
 {
     private readonly IConfiguration _configuration;
-    private readonly ILogger<PollyPolicyWrapper<T>> _logger;
-    private readonly ResiliencePipeline<T> policy;
+    private readonly ILogger<PollyPolicyWrapper> _logger;
+    public ResiliencePipeline Policy { get; set; }
 
-    public PollyPolicyWrapper(IConfiguration configuration, ILogger<PollyPolicyWrapper<T>> logger)
+    public PollyPolicyWrapper(IConfiguration configuration, ILogger<PollyPolicyWrapper> logger)
     {
         _configuration = configuration;
         _logger = logger;
 
         var maxRetryNumber = Convert.ToInt32(_configuration["PollyPolicy:AttemptNumber"]);
-        policy = new ResiliencePipelineBuilder<T>()
-                 .AddRetry(new Polly.Retry.RetryStrategyOptions<T>()
+        Policy = new ResiliencePipelineBuilder()
+                 .AddRetry(new Polly.Retry.RetryStrategyOptions()
                  {
                      MaxRetryAttempts = maxRetryNumber,
                      Delay = TimeSpan.Zero,
@@ -32,16 +32,5 @@ public class PollyPolicyWrapper<T> : IPollyPolicyWrapper<T> where T : class
                          return ValueTask.CompletedTask;
                      }
                  }).Build();
-    }
-
-    public async Task<T> ExecuteAsync(Func<Task<T>> action)
-    {
-        var result = await policy.ExecuteAsync<T>(async token =>
-        {
-            var results = await action();
-            return results;
-        }, CancellationToken.None);
-
-        return result;
     }
 }
