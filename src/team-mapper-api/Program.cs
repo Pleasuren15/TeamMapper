@@ -13,6 +13,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<ITaskManager, TaskManager>();
 builder.Services.AddScoped<ITaskService, TaskService>();
+builder.Services.AddScoped(typeof(IPollyPolicyWrapper<>), typeof(PollyPolicyWrapper<>));
 
 var connectionString = builder.Configuration.GetConnectionString("TeamMapperDb");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
