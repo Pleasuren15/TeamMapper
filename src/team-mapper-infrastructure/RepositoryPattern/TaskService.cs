@@ -16,8 +16,7 @@ public class TaskService(
     {
         _logger.LogInformation("GetAllTasksAsync(TaskService) Start. CorrelationId {@CorrelationId}", correlationId);
 
-        var results = await _pollyPolicyWrapper.Policy
-            .Execute(() => _taskRepository.GetAllAsync(correlationId: correlationId));
+        var results = await _taskRepository.GetAllAsync(correlationId: correlationId);
 
         _logger.LogInformation("GetAllTasksAsync(TaskService) End. CorrelationId {@CorrelationId} Count {@Count}", correlationId, results.Count());
         return results;

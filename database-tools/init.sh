@@ -4,7 +4,8 @@ export ACCEPT_EULA='Y'
 set -e
 
 # Accept end user agreement & proceed after 30 seconds giving the database time to start up completely.
-/opt/mssql/bin/sqlservr --accept-eula & sleep 30
+/opt/mssql/bin/sqlservr --accept-eula & 
+sleep 30
 
 echo "Start: Executing Create Database"
 /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "YourStrong!Passw0rd" -C -Q  "CREATE DATABASE TeamMapper;"

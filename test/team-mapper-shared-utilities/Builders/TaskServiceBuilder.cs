@@ -8,7 +8,7 @@ namespace team_mapper_shared_utilities.Builders;
 public class TaskServiceBuilder
 {
     private IRepository<team_mapper_domain.Models.Task>? _taskRepository;
-    IPollyPolicyWrapper pollyPolicyWrapper;
+    IPollyPolicyWrapper? pollyPolicyWrapper;
 
     public TaskServiceBuilder WithTaskRepository(IRepository<team_mapper_domain.Models.Task> taskRepository)
     {
