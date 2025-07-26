@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36221.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "team-mapper-database", "team-mapper-database\team-mapper-database.sqlproj", "{06E31B04-8F38-41D3-B29F-31F11A45FC19}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "team-mapper-api", "team-mapper-api\team-mapper-api.csproj", "{65053A16-411F-46FA-8000-6EA5B70114EC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "team-mapper-infrastructure", "team-mapper-infrastructure\team-mapper-infrastructure.csproj", "{3E75E0E8-0CFA-4A93-9B6B-0E9122811EE2}"
@@ -33,12 +31,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{06E31B04-8F38-41D3-B29F-31F11A45FC19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{06E31B04-8F38-41D3-B29F-31F11A45FC19}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{06E31B04-8F38-41D3-B29F-31F11A45FC19}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{06E31B04-8F38-41D3-B29F-31F11A45FC19}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{06E31B04-8F38-41D3-B29F-31F11A45FC19}.Release|Any CPU.Build.0 = Release|Any CPU
-		{06E31B04-8F38-41D3-B29F-31F11A45FC19}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{65053A16-411F-46FA-8000-6EA5B70114EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{65053A16-411F-46FA-8000-6EA5B70114EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65053A16-411F-46FA-8000-6EA5B70114EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -80,7 +72,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{06E31B04-8F38-41D3-B29F-31F11A45FC19} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{65053A16-411F-46FA-8000-6EA5B70114EC} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{3E75E0E8-0CFA-4A93-9B6B-0E9122811EE2} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{43A6AFCB-DF1A-498A-90BB-4DD90EB9F570} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
