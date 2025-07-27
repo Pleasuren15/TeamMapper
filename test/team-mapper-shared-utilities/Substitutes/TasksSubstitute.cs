@@ -13,10 +13,11 @@ namespace team_mapper_shared_utilities.Substitutes;
 public struct TasksSubstitute()
 {
     public ILogger<TasksController> GetAllTasksLogger = Substitute.For<ILogger<TasksController>>();
+    public ILogger<TaskManager> TaskManagerLogger = Substitute.For<ILogger<TaskManager>>();
+    public ILogger<TaskService> TaskServiceLogger = Substitute.For<ILogger<TaskService>>();
+
     public ITaskManager TaskManager = Substitute.For<ITaskManager>();
     public ITaskService TaskService = Substitute.For<ITaskService>();
-    public ILogger<TaskManager> TaskManagerLogger = Substitute.For<ILogger<TaskManager>>();
-    public IRepository<team_mapper_domain.Models.Task> Repository = Substitute.For<IRepository<team_mapper_domain.Models.Task>>();
-    public ILogger<TaskService> TaskServiceLogger = Substitute.For<ILogger<TaskService>>();
+    public IRepository<team_mapper_domain.Models.WorkItem> Repository = Substitute.For<IRepository<team_mapper_domain.Models.WorkItem>>();
     public IPollyPolicyWrapper PollyPolicyWrapper = Substitute.For<IPollyPolicyWrapper>();
 }

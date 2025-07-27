@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
 using team_mapper_api.Endpoints.Tasks;
+using team_mapper_domain.Models;
 using team_mapper_shared_utilities.ResponseFactories;
 using team_mapper_shared_utilities.Substitutes;
 using team_mapper_shared_utilities.SystemUnderTests;
@@ -19,7 +20,7 @@ public class GetAllTasksTests
     public void SetUp()
     {
         _tasksSubstitute = new TasksSubstitute();
-        _systemUnderTest = GetAllTasksSystemUnderTests.CreateSystemUndeTest(
+        _systemUnderTest = TasksSystemUnderTests.CreateSystemUndeTest(
             tasksSubstitute: _tasksSubstitute);
     }
 
@@ -35,7 +36,7 @@ public class GetAllTasksTests
 
         // Assert
         var controllerResponse = results as ObjectResult;
-        var controllerResponseValue = controllerResponse!.Value as List<team_mapper_domain.Models.Task>;
+        var controllerResponseValue = controllerResponse!.Value as List<WorkItem>;
         controllerResponseValue!.Count.Should().Be(randomTasks.Count());
     }
 
@@ -50,7 +51,7 @@ public class GetAllTasksTests
 
         // Assert
         var controllerResponse = results as ObjectResult;
-        var controllerResponseValue = controllerResponse!.Value as List<team_mapper_domain.Models.Task>;
+        var controllerResponseValue = controllerResponse!.Value as List<WorkItem>;
         controllerResponseValue!.Should().BeNull();
     }
 

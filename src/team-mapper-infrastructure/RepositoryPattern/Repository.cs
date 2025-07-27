@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Logging;
 using team_mapper_infrastructure.Infrastructure;
 using team_mapper_infrastructure.Interfaces;
@@ -33,9 +34,15 @@ public class Repository<T>(
         return results!;
     }
 
-    public async Task AddAsync(T entity, Guid correlationId)
+    public async Task<EntityState> AddAsync(T entity, Guid correlationId)
     {
-        await _dbSet.AddAsync(entity);
+        _logger.LogInformation("AddAsync(Repository) Start: Entity {@entity} CorrelationId {@CorrelationId}", entity, correlationId);
+
+        var results = await _pollyPolicyWrapper.ExecuteWithPollyRetryPolicyAsync<Exception, EntityEntry<T>>(
+                async () => await _dbSet.AddAsync(entity));
+
+        _logger.LogInformation("AddAsync(Repository) End: Entity {@entity} CorrelationId {@CorrelationId}", entity, correlationId);
+        return results.State;
     }
 
     public void Update(T entity, Guid correlationId)
@@ -50,6 +57,8 @@ public class Repository<T>(
 
     public async Task SaveChangesAsync(Guid correlationId)
     {
+        _logger.LogInformation("SaveChangesAsync(Repository) Start: CorrelationId {@CorrelationId}", correlationId);
         await _context.SaveChangesAsync();
+        _logger.LogInformation("SaveChangesAsync(Repository) End: CorrelationId {@CorrelationId}", correlationId);
     }
 }
