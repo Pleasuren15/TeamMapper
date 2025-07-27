@@ -12,7 +12,7 @@ namespace team_mapper_api_unit_tests;
 [TestFixture]
 public class GetAllTasksTests
 {
-    AddTaskController _systemUnderTest;
+    TasksController _systemUnderTest;
     TasksSubstitute _tasksSubstitute;
 
     [SetUp]

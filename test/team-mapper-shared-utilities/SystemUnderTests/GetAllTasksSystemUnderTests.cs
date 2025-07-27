@@ -8,7 +8,7 @@ namespace team_mapper_shared_utilities.SystemUnderTests;
 
 public static class GetAllTasksSystemUnderTests
 {
-    public static GetAllTasksController CreateSystemUndeTest(TasksSubstitute tasksSubstitute)
+    public static TasksController CreateSystemUndeTest(TasksSubstitute tasksSubstitute)
     {
         tasksSubstitute.TaskService = new TaskServiceBuilder()
             .WithTaskRepository(tasksSubstitute.Repository)
@@ -18,7 +18,7 @@ public static class GetAllTasksSystemUnderTests
             .WithTaskService(tasksSubstitute.TaskService)
             .Build();
 
-        var controller = new GetAllTasksController(
+        var controller = new TasksController(
             logger: tasksSubstitute.GetAllTasksLogger,
             taskManager: tasksSubstitute.TaskManager)
         {

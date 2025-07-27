@@ -12,8 +12,7 @@ namespace team_mapper_shared_utilities.Substitutes;
 [ExcludeFromCodeCoverage]
 public struct TasksSubstitute()
 {
-    public ILogger<GetAllTasksController> GetAllTasksLogger = Substitute.For<ILogger<GetAllTasksController>>();
-    public ILogger<AddTaskController> AddTaskController = Substitute.For<ILogger<AddTaskController>>();
+    public ILogger<TasksController> GetAllTasksLogger = Substitute.For<ILogger<TasksController>>();
     public ILogger<TaskManager> TaskManagerLogger = Substitute.For<ILogger<TaskManager>>();
     public ILogger<TaskService> TaskServiceLogger = Substitute.For<ILogger<TaskService>>();
 
