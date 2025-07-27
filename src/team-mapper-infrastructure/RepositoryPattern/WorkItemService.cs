@@ -4,14 +4,14 @@ using team_mapper_domain.Models;
 
 namespace team_mapper_infrastructure.RepositoryPattern;
 
-public class TaskService(
+public class WorkItemService(
     IRepository<WorkItem> taskRepository,
-    ILogger<TaskService> logger) : ITaskService
+    ILogger<WorkItemService> logger) : IWorkItemService
 {
     private readonly IRepository<WorkItem> _taskRepository = taskRepository;
-    private readonly ILogger<TaskService> _logger = logger;
+    private readonly ILogger<WorkItemService> _logger = logger;
 
-    public async Task<IEnumerable<WorkItem>> GetAllTasksAsync(Guid correlationId)
+    public async Task<IEnumerable<WorkItem>> GetAllWorkItemsAsync(Guid correlationId)
     {
         _logger.LogInformation("GetAllTasksAsync(TaskService) Start. CorrelationId {@CorrelationId}", correlationId);
 

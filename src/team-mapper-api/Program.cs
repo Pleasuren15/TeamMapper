@@ -13,8 +13,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-builder.Services.AddScoped<ITaskManager, TaskManager>();
-builder.Services.AddScoped<ITaskService, TaskService>();
+builder.Services.AddScoped<IWorkItemsManager, WorkItemsManager>();
+builder.Services.AddScoped<IWorkItemService, WorkItemService>();
 builder.Services.AddScoped<IPollyPolicyWrapper, PollyPolicyWrapper>();
 
 var connectionString = builder.Configuration.GetConnectionString("TeamMapperDb");
