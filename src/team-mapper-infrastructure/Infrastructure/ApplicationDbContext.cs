@@ -1,13 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using team_mapper_domain.Models;
 
 namespace team_mapper_infrastructure.Infrastructure;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        : base(options)
-    {
-    }
-
-    public DbSet<team_mapper_domain.Models.WorkItem> Tasks { get; set; }
+    public DbSet<WorkItem> WorkItems { get; set; }
 }
