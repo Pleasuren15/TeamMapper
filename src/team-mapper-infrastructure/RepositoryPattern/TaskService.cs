@@ -25,8 +25,8 @@ public class TaskService(
     {
         _logger.LogInformation("CreateWorkItemAsync Start: WorkItemId {@WorkItemId} CorrelationId {@CorrelationId}", workItem.WorkItemId, correlationId);
 
-        var results = await _taskRepository.AddAsync(entity: workItem, correlationId: correlationId);
-        if (results.State == EntityState.Added)
+        var state = await _taskRepository.AddAsync(entity: workItem, correlationId: correlationId);
+        if (state is EntityState.Added)
         {
             await _taskRepository.SaveChangesAsync(correlationId: correlationId);
         }

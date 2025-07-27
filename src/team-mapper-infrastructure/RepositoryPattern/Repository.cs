@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Logging;
 using team_mapper_infrastructure.Infrastructure;
 using team_mapper_infrastructure.Interfaces;
@@ -35,7 +34,7 @@ public class Repository<T>(
         return results!;
     }
 
-    public async Task<EntityEntry<T>> AddAsync(T entity, Guid correlationId)
+    public async Task<EntityState> AddAsync(T entity, Guid correlationId)
     {
         _logger.LogInformation("AddAsync(Repository) Start: Entity {@entity} CorrelationId {@CorrelationId}", entity, correlationId);
 
@@ -43,7 +42,7 @@ public class Repository<T>(
                 async () => await _dbSet.AddAsync(entity));
 
         _logger.LogInformation("AddAsync(Repository) End: Entity {@entity} CorrelationId {@CorrelationId}", entity, correlationId);
-        return results;
+        return results.State;
     }
 
     public void Update(T entity, Guid correlationId)

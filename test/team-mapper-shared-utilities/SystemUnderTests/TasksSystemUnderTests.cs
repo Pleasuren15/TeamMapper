@@ -6,7 +6,7 @@ using team_mapper_shared_utilities.Substitutes;
 
 namespace team_mapper_shared_utilities.SystemUnderTests;
 
-public static class GetAllTasksSystemUnderTests
+public static class TasksSystemUnderTests
 {
     public static TasksController CreateSystemUndeTest(TasksSubstitute tasksSubstitute)
     {

@@ -1,16 +1,18 @@
-﻿using team_mapper_domain.Models.Enum;
+﻿using team_mapper_domain.Models;
+using team_mapper_domain.Models.Enum;
+using team_mapper_domain.Responses;
 
 namespace team_mapper_shared_utilities.ResponseFactories;
 
 public static class TaskResponseFactory
 {
-    public static IEnumerable<team_mapper_domain.Models.WorkItem> CreateTasks(int numberOfTasks = 10)
+    public static IEnumerable<WorkItem> CreateTasks(int numberOfTasks = 10)
     {
-        var tasks = new List<team_mapper_domain.Models.WorkItem>();
+        var tasks = new List<WorkItem>();
         for (int i = 0; i < numberOfTasks; i++)
         {
             tasks.Add(
-                new team_mapper_domain.Models.WorkItem()
+                new WorkItem()
                 {
                     WorkItemId = Guid.NewGuid(),
                     Description = GetRandomDescription(),
@@ -23,6 +25,8 @@ public static class TaskResponseFactory
 
         return tasks;
     }
+
+    public static CreateWorkItemResponse CreateWorkItemResponse(Guid workItemId) => new(workItemId: workItemId);
 
     #region Data Generator Helper
     private static string GetRandomDescription()
