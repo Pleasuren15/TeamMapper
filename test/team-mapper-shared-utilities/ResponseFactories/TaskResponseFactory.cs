@@ -4,15 +4,15 @@ namespace team_mapper_shared_utilities.ResponseFactories;
 
 public static class TaskResponseFactory
 {
-    public static IEnumerable<team_mapper_domain.Models.Task> CreateTasks(int numberOfTasks = 10)
+    public static IEnumerable<team_mapper_domain.Models.WorkItem> CreateTasks(int numberOfTasks = 10)
     {
-        var tasks = new List<team_mapper_domain.Models.Task>();
+        var tasks = new List<team_mapper_domain.Models.WorkItem>();
         for (int i = 0; i < numberOfTasks; i++)
         {
             tasks.Add(
-                new team_mapper_domain.Models.Task()
+                new team_mapper_domain.Models.WorkItem()
                 {
-                    TaskId = Guid.NewGuid(),
+                    WorkItemId = Guid.NewGuid(),
                     Description = GetRandomDescription(),
                     EndDate = DateTime.Now,
                     TaskPriority = GetRandomEnumValue<TaskPriority>(),

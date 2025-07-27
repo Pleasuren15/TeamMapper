@@ -12,5 +12,5 @@ public class TeamMember
     [JsonPropertyName(nameof(Name))]
     public string Name { get; set; } = string.Empty;
 
-    public IList<Task> Tasks { get; set; } = new List<Task>();
+    public IList<WorkItem> Tasks { get; set; } = new List<WorkItem>();
 }

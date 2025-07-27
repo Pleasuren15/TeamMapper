@@ -1,6 +1,9 @@
-﻿namespace team_mapper_infrastructure.RepositoryPattern;
+﻿using team_mapper_domain.Models;
+
+namespace team_mapper_infrastructure.RepositoryPattern;
 
 public interface ITaskService
 {
-    Task<IEnumerable<team_mapper_domain.Models.Task>> GetAllTasksAsync(Guid correlationId);
+    Task<IEnumerable<WorkItem>> GetAllTasksAsync(Guid correlationId);
+    Task<Guid> CreateWorkItemAsync(WorkItem workItem, Guid correlationId);
 }

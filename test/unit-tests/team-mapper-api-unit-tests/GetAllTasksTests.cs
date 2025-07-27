@@ -12,7 +12,7 @@ namespace team_mapper_api_unit_tests;
 [TestFixture]
 public class GetAllTasksTests
 {
-    TasksController _systemUnderTest;
+    AddTaskController _systemUnderTest;
     TasksSubstitute _tasksSubstitute;
 
     [SetUp]
@@ -35,7 +35,7 @@ public class GetAllTasksTests
 
         // Assert
         var controllerResponse = results as ObjectResult;
-        var controllerResponseValue = controllerResponse!.Value as List<team_mapper_domain.Models.Task>;
+        var controllerResponseValue = controllerResponse!.Value as List<team_mapper_domain.Models.WorkItem>;
         controllerResponseValue!.Count.Should().Be(randomTasks.Count());
     }
 
@@ -50,7 +50,7 @@ public class GetAllTasksTests
 
         // Assert
         var controllerResponse = results as ObjectResult;
-        var controllerResponseValue = controllerResponse!.Value as List<team_mapper_domain.Models.Task>;
+        var controllerResponseValue = controllerResponse!.Value as List<team_mapper_domain.Models.WorkItem>;
         controllerResponseValue!.Should().BeNull();
     }
 

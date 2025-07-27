@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using team_mapper_infrastructure.Infrastructure;
 
@@ -11,9 +12,11 @@ using team_mapper_infrastructure.Infrastructure;
 namespace team_mapper_infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250727064418_TaskRenamed")]
+    partial class TaskRenamed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,10 +27,10 @@ namespace team_mapper_infrastructure.Migrations
 
             modelBuilder.Entity("team_mapper_domain.Models.WorkItem", b =>
                 {
-                    b.Property<Guid>("WorkItemId")
+                    b.Property<Guid>("TaskId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasAnnotation("Relational:JsonPropertyName", "WorkItemId");
+                        .HasAnnotation("Relational:JsonPropertyName", "TaskId");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -50,7 +53,7 @@ namespace team_mapper_infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("Relational:JsonPropertyName", "TaskPriority");
 
-                    b.HasKey("WorkItemId");
+                    b.HasKey("TaskId");
 
                     b.ToTable("Tasks");
                 });

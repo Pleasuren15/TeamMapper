@@ -4,28 +4,25 @@ using team_mapper_domain.Models.Enum;
 
 namespace team_mapper_domain.Models;
 
-public class Task
+public class WorkItem
 {
-    [JsonPropertyName(nameof(TaskId))]
-    public Guid TaskId { get; set; }
+    [Key]
+    [JsonPropertyName(nameof(WorkItemId))]
+    public Guid WorkItemId { get; set; } = Guid.NewGuid();
 
     [Required]
     [JsonPropertyName(nameof(Description))]
     public string Description { get; set; } = string.Empty;
 
-    [Required]
     [JsonPropertyName(nameof(EndDate))]
-    public DateTime EndDate { get; set; }
+    public DateTime EndDate { get; set; } = DateTime.Now.AddDays(7);
 
-    [Required]
     [JsonPropertyName(nameof(TaskPriority))]
-    public TaskPriority TaskPriority { get; set; }
+    public TaskPriority TaskPriority { get; set; } = TaskPriority.Low;
 
-    [Required]
     [JsonPropertyName(nameof(TaskCategory))]
-    public TaskCategory TaskCategory { get; set; }
+    public TaskCategory TaskCategory { get; set; } = TaskCategory.Other;
 
-    [Required]
     [JsonPropertyName(nameof(IsComplete))]
     public bool IsComplete { get; set; } = false;
 }

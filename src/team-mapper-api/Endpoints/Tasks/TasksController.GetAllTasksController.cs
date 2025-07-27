@@ -1,16 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using team_mapper_api.Extensions;
-using team_mapper_application.Interfaces;
 
 namespace team_mapper_api.Endpoints.Tasks;
 
-
-public partial class TasksController(ILogger<TasksController> logger, ITaskManager taskManager) : ControllerBase
+public partial class TasksController : ControllerBase
 {
-    private ILogger<TasksController> _logger { get; } = logger;
-    private ITaskManager _taskManager { get; } = taskManager;
-
-    [HttpGet]
+    [HttpGet("/tasks")]
     public async Task<IActionResult> GetAllTasksAsync()
     {
         var correlationId = Request.GetCorrelationId();

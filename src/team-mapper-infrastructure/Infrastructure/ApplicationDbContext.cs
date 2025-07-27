@@ -9,5 +9,5 @@ public class ApplicationDbContext : DbContext
     {
     }
 
-    public DbSet<team_mapper_domain.Models.Task> Tasks { get; set; }
+    public DbSet<team_mapper_domain.Models.WorkItem> Tasks { get; set; }
 }
