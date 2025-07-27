@@ -35,4 +35,19 @@ public class TaskService(
 
         return workItem.WorkItemId;
     }
+
+    public async Task<Guid> UpdateWorkItemAsync(WorkItem workItem, Guid correlationId)
+    {
+        _logger.LogInformation("UpdateWorkItemAsync Start: WorkItemId {@WorkItemId} CorrelationId {@CorrelationId}", workItem.WorkItemId, correlationId);
+
+        var state = await _taskRepository.UpdateAsync(entity: workItem, correlationId: correlationId);
+        if (state is EntityState.Added)
+        {
+            await _taskRepository.SaveChangesAsync(correlationId: correlationId);
+        }
+
+        _logger.LogInformation("UpdateWorkItemAsync End: WorkItemId {@WorkItemId} CorrelationId {@CorrelationId}", workItem.WorkItemId, correlationId);
+
+        return workItem.WorkItemId;
+    }
 }

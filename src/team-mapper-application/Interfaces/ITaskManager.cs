@@ -8,5 +8,6 @@ namespace team_mapper_application.Interfaces
         Task<IEnumerable<WorkItem>> GetAllTasksAsync(Guid correlationId);
 
         Task<CreateWorkItemResponse> CreateWorkItemAsync(WorkItem workItem, Guid correlationId);
+        Task<WorkItem> UpdateWorkItemAsync(WorkItem workItem, Guid correlationId);
     }
 }

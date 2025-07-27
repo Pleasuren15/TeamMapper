@@ -7,14 +7,14 @@ namespace team_mapper_api.Endpoints.Tasks;
 
 public partial class TasksController : ControllerBase
 {
-    [HttpPost("/update")]
+    [HttpPut("/update")]
     public async Task<IActionResult> UpdateWorkItemAsync(
         [Required][FromBody] WorkItem workItem)
     {
         var correlationId = Request.GetCorrelationId();
         _logger.LogInformation("UpdateWorkItemAsync Start. CorrelationId {@CorrelationId}", correlationId);
 
-        var results = await _taskManager.CreateWorkItemAsync(
+        var results = await _taskManager.UpdateWorkItemAsync(
             workItem: workItem,
             correlationId: correlationId);
 

@@ -6,4 +6,5 @@ public interface ITaskService
 {
     Task<IEnumerable<WorkItem>> GetAllTasksAsync(Guid correlationId);
     Task<Guid> CreateWorkItemAsync(WorkItem workItem, Guid correlationId);
+    Task<Guid> UpdateWorkItemAsync(WorkItem workItem, Guid correlationId);
 }

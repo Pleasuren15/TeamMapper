@@ -52,4 +52,27 @@ public class TaskManager(ITaskService taskService, ILogger<TaskManager> logger) 
             _logger.LogInformation("CreateWorkItemAsync End: WorkItemId {@WorkItemId} CorrelationId {@CorrelationId}", workItem.WorkItemId, correlationId);
         }
     }
+
+    public async Task<WorkItem> UpdateWorkItemAsync(WorkItem workItem, Guid correlationId)
+    {
+        try
+        {
+            _logger.LogInformation("UpdateWorkItemAsync Start: WorkItemId {@WorkItemId} CorrelationId {@CorrelationId}", workItem.WorkItemId, correlationId);
+
+            var tasks = await _taskService.UpdateWorkItemAsync(
+                workItem: workItem,
+                correlationId: correlationId);
+
+            return workItem;
+        }
+        catch (Exception exception)
+        {
+            _logger.LogError("UpdateWorkItemAsync:  Error WorkItemId {@WorkItemId} Message {@Message}", workItem.WorkItemId, exception.Message);
+            throw;
+        }
+        finally
+        {
+            _logger.LogInformation("UpdateWorkItemAsync End: WorkItemId {@WorkItemId} CorrelationId {@CorrelationId}", workItem.WorkItemId, correlationId);
+        }
+    }
 }
