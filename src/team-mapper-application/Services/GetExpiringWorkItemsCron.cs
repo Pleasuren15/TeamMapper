@@ -6,19 +6,11 @@ using team_mapper_application.Interfaces;
 
 namespace team_mapper_application.Services;
 
-public class GetExpiringWorkItemsCron : IHostedService, IDisposable
+public class GetExpiringWorkItemsCron(IServiceProvider serviceProvider) : IHostedService, IDisposable
 {
-    private readonly ILogger<GetExpiringWorkItemsCron> _logger;
-    private readonly IWorkItemsManager _workItemsManager;
-    private readonly IConfiguration _configuration;
-
-    public GetExpiringWorkItemsCron(IServiceProvider serviceProvider)
-    {
-        _logger = serviceProvider.GetRequiredService<ILogger<GetExpiringWorkItemsCron>>();
-        _workItemsManager = serviceProvider.GetRequiredService<IWorkItemsManager>();
-        _configuration = serviceProvider.GetRequiredService<IConfiguration>();
-    }
-
+    private readonly ILogger<GetExpiringWorkItemsCron> _logger = serviceProvider.GetRequiredService<ILogger<GetExpiringWorkItemsCron>>();
+    private readonly IWorkItemsManager _workItemsManager = serviceProvider.GetRequiredService<IWorkItemsManager>();
+    private readonly IConfiguration _configuration = serviceProvider.GetRequiredService<IConfiguration>();
     private Timer? _timer;
 
     public Task StartAsync(CancellationToken cancellationToken)
@@ -52,5 +44,9 @@ public class GetExpiringWorkItemsCron : IHostedService, IDisposable
         _logger.LogInformation("Executing GetExpiringWorkItemsCron End: CorrelationId: {CorrelationId}", correlationId);
     }
 
-    public void Dispose() => _logger.LogInformation("Disposing GetDueWorkItemsCron Resources.");
+    public void Dispose()
+    {
+        _timer?.Dispose();
+        _logger.LogInformation("Disposing GetDueWorkItemsCron Resources.");
+    }
 }
