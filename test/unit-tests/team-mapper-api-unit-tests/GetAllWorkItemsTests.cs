@@ -11,7 +11,7 @@ using team_mapper_shared_utilities.SystemUnderTests;
 namespace team_mapper_api_unit_tests;
 
 [TestFixture]
-public class GetAllTasksTests
+public class GetAllWorkItemsTests
 {
     TasksController _systemUnderTest;
     TasksSubstitute _tasksSubstitute;
@@ -25,11 +25,11 @@ public class GetAllTasksTests
     }
 
     [Test]
-    public async Task GivenTasksExists_WhenCallingGetAllTasksAsync_ThenShouldReturnTask()
+    public async Task GivenTasksExists_WhenCallingGetAllWorkItems_ThenShouldReturnTask()
     {
         // Arrange
         var randomTasks = TaskResponseFactory.CreateTasks(5);
-        _tasksSubstitute.Repository.GetAllAsync(Arg.Any<Guid>()).Returns(randomTasks);
+        _tasksSubstitute.Repository.GetAllAsync(Arg.Any<Guid>(), Arg.Any<string>()).Returns(randomTasks);
 
         // Act
         var results = await _systemUnderTest.GetAllTasksAsync();
@@ -41,10 +41,10 @@ public class GetAllTasksTests
     }
 
     [Test]
-    public async Task GivenNoTasksExists_WhenCallingGetAllTasksAsync_ThenShouldReturnEmptyList()
+    public async Task GivenNoTasksExists_WhenCallingGetAllWorkItems_ThenShouldReturnEmptyList()
     {
         // Arrange
-        _tasksSubstitute.Repository.GetAllAsync(Arg.Any<Guid>()).Returns([]);
+        _tasksSubstitute.Repository.GetAllAsync(Arg.Any<Guid>(), Arg.Any<string>()).Returns([]);
 
         // Act
         var results = await _systemUnderTest.GetAllTasksAsync();
@@ -56,10 +56,10 @@ public class GetAllTasksTests
     }
 
     [Test]
-    public void GivenGetAllThrowsException_WhenCallingGetAllTasksAsync_ThenShouldReturnInternalServerError()
+    public void GivenGetAllThrowsException_WhenCallingGetAllWorkItems_ThenShouldReturnInternalServerError()
     {
         // Arrange
-        _tasksSubstitute.Repository.GetAllAsync(Arg.Any<Guid>()).ThrowsAsync(new Exception("Database error"));
+        _tasksSubstitute.Repository.GetAllAsync(Arg.Any<Guid>(), Arg.Any<string>()).ThrowsAsync(new Exception("Database error"));
 
         // Act
         var exception = Assert.ThrowsAsync<Exception>(async () => await _systemUnderTest.GetAllTasksAsync());

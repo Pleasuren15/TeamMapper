@@ -29,7 +29,7 @@ public class GetExpiringWorkItems
     {
         // Arrange
         var randomTasks = TaskResponseFactory.CreateTasks(5);
-        _tasksSubstitute.Repository.GetAllAsync(Arg.Any<Guid>()).Returns(randomTasks);
+        _tasksSubstitute.Repository.GetAllAsync(Arg.Any<Guid>(), Arg.Any<string>()).Returns(randomTasks);
 
         // Act
         var results = await _systemUnderTest.GetExpiringWorkItemsAsync();
@@ -44,7 +44,7 @@ public class GetExpiringWorkItems
     public async Task GivenNoTasksExists_WhenGetExpiringWorkItemsAsync_ThenShouldReturnEmptyList()
     {
         // Arrange
-        _tasksSubstitute.Repository.GetAllAsync(Arg.Any<Guid>()).Returns([]);
+        _tasksSubstitute.Repository.GetAllAsync(Arg.Any<Guid>(), Arg.Any<string>()).Returns([]);
 
         // Act
         var results = await _systemUnderTest.GetExpiringWorkItemsAsync();
@@ -59,7 +59,7 @@ public class GetExpiringWorkItems
     public void GivenGetAllThrowsException_WhenGetExpiringWorkItemsAsync_ThenShouldReturnInternalServerError()
     {
         // Arrange
-        _tasksSubstitute.Repository.GetAllAsync(Arg.Any<Guid>()).ThrowsAsync(new Exception("Database error"));
+        _tasksSubstitute.Repository.GetAllAsync(Arg.Any<Guid>(), Arg.Any<string>()).ThrowsAsync(new Exception("Database error"));
 
         // Act
         var exception = Assert.ThrowsAsync<Exception>(async () => await _systemUnderTest.GetExpiringWorkItemsAsync());
