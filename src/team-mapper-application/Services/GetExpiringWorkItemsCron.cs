@@ -10,9 +10,9 @@ public class GetExpiringWorkItemsCron(
     IWorkItemsManager workItemsManager,
     IConfiguration configuration) : IHostedService, IDisposable
 {
-    private ILogger<GetExpiringWorkItemsCron> _logger = logger;
-    private IWorkItemsManager _workItemsManager = workItemsManager;
-    private IConfiguration _configuration = configuration;
+    private readonly ILogger<GetExpiringWorkItemsCron> _logger = logger;
+    private readonly IWorkItemsManager _workItemsManager = workItemsManager;
+    private readonly IConfiguration _configuration = configuration;
 
     private Timer? _timer;
 
