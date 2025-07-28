@@ -40,7 +40,11 @@ public class GetExpiringWorkItemsCron(
     {
         _logger.LogInformation("Cron Job Set up");
         var correlationId = Guid.NewGuid();
-        var expringWorkItems = _workItemsManager.GetExpiringWorkItemsAsync(Guid.NewGuid()).GetAwaiter().GetResult();
+        _logger.LogInformation("Executing GetExpiringWorkItemsCron Start: CorrelationId: {CorrelationId}", correlationId);
+
+        var expringWorkItems = _workItemsManager.GetExpiringWorkItemsAsync(correlationId: Guid.NewGuid()).GetAwaiter().GetResult();
+
+        _logger.LogInformation("Executing GetExpiringWorkItemsCron End: CorrelationId: {CorrelationId}", correlationId);
     }
 
     public void Dispose() => _logger.LogInformation("Disposing GetDueWorkItemsCron Resources.");
