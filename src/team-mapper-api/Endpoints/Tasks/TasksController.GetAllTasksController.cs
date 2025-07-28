@@ -11,7 +11,7 @@ public partial class TasksController : ControllerBase
         var correlationId = Request.GetCorrelationId();
         _logger.LogInformation("GetAllTasksAsync Start. CorrelationId {@CorrelationId}", correlationId);
 
-        var results = await _taskManager.GetAllTasksAsync(correlationId);
+        var results = await _taskManager.GetAllWorkItemsAsync(correlationId);
 
         _logger.LogInformation("GetAllTasksAsync End. CorrelationId {@CorrelationId}", correlationId);
 

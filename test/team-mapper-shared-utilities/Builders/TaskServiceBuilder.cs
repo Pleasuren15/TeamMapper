@@ -15,10 +15,10 @@ public class TaskServiceBuilder
         return this;
     }
 
-    public TaskService Build()
+    public WorkItemService Build()
     {
-        return new TaskService(
+        return new WorkItemService(
             taskRepository: _taskRepository ?? Substitute.For<IRepository<team_mapper_domain.Models.WorkItem>>(),
-            logger: Substitute.For<ILogger<TaskService>>());
+            logger: Substitute.For<ILogger<WorkItemService>>());
     }
 }

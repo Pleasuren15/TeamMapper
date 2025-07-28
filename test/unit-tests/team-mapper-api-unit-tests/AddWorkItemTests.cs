@@ -9,64 +9,63 @@ using team_mapper_domain.Responses;
 using team_mapper_shared_utilities.Substitutes;
 using team_mapper_shared_utilities.SystemUnderTests;
 
-namespace team_mapper_api_unit_tests
+namespace team_mapper_api_unit_tests;
+
+[TestFixture]
+public class AddWorkItemTests
 {
-    [TestFixture]
-    public class AddWorkItemTests
+    TasksController _systemUnderTest;
+    TasksSubstitute _tasksSubstitute;
+
+    [SetUp]
+    public void SetUp()
     {
-        TasksController _systemUnderTest;
-        TasksSubstitute _tasksSubstitute;
+        _tasksSubstitute = new TasksSubstitute();
+        _systemUnderTest = TasksSystemUnderTests.CreateSystemUndeTest(
+            tasksSubstitute: _tasksSubstitute);
+    }
 
-        [SetUp]
-        public void SetUp()
-        {
-            _tasksSubstitute = new TasksSubstitute();
-            _systemUnderTest = TasksSystemUnderTests.CreateSystemUndeTest(
-                tasksSubstitute: _tasksSubstitute);
-        }
+    [Test]
+    public async Task GivenValidWorkItem_WhenCallingCreateWorkItemAsync_ThenShouldReturnSentId()
+    {
+        // Arrange
+        var workItem = new WorkItem();
+        _tasksSubstitute.Repository.AddAsync(Arg.Is(workItem), Arg.Any<Guid>()).Returns(EntityState.Added);
 
-        [Test]
-        public async Task GivenValidWorkItem_WhenCallingCreateWorkItemAsync_ThenShouldReturnSentId()
-        {
-            // Arrange
-            var workItem = new WorkItem();
-            _tasksSubstitute.Repository.AddAsync(Arg.Is(workItem), Arg.Any<Guid>()).Returns(EntityState.Added);
+        // Act
+        var results = await _systemUnderTest.CreateWorkItemAsync(workItem: workItem);
 
-            // Act
-            var results = await _systemUnderTest.CreateWorkItemAsync(workItem: workItem);
+        // Assert
+        var controllerResponse = results as ObjectResult;
+        var controllerResponseValue = controllerResponse!.Value as CreateWorkItemResponse;
+        controllerResponseValue!.WorkItemId.Should().Be(workItem.WorkItemId);
+    }
 
-            // Assert
-            var controllerResponse = results as ObjectResult;
-            var controllerResponseValue = controllerResponse!.Value as CreateWorkItemResponse;
-            controllerResponseValue!.WorkItemId.Should().Be(workItem.WorkItemId);
-        }
+    [Test]
+    public async Task GivenWorkItemAdded_WhenCallingCreateWorkItemAsync_ThenShouldSaveChanges()
+    {
+        // Arrange
+        var workItem = new WorkItem();
+        _tasksSubstitute.Repository.AddAsync(Arg.Is(workItem), Arg.Any<Guid>()).Returns(EntityState.Added);
 
-        [Test]
-        public async Task GivenWorkItemAdded_WhenCallingCreateWorkItemAsync_ThenShouldSaveChanges()
-        {
-            // Arrange
-            var workItem = new WorkItem();
-            _tasksSubstitute.Repository.AddAsync(Arg.Is(workItem), Arg.Any<Guid>()).Returns(EntityState.Added);
+        // Act
+        var results = await _systemUnderTest.CreateWorkItemAsync(workItem: workItem);
 
-            // Act
-            var results = await _systemUnderTest.CreateWorkItemAsync(workItem: workItem);
+        // Assert
+        _ = _tasksSubstitute.Repository.Received(1).SaveChangesAsync(Arg.Any<Guid>());
+    }
 
-            // Assert
-            _ = _tasksSubstitute.Repository.Received(1).SaveChangesAsync(Arg.Any<Guid>());
-        }
+    [Test]
+    public void GivenErrorThrown_WhenCallingCreateWorkItemAsync_ThenShouldReturnError()
+    {
+        // Arrange
+        const string ExpectedErrorMessage = "Error Was Thrown";
+        _tasksSubstitute.Repository.AddAsync(Arg.Any<WorkItem>(), Arg.Any<Guid>()).Throws(new Exception(ExpectedErrorMessage));
 
-        [Test]
-        public void GivenErrorThrown_WhenCallingCreateWorkItemAsync_ThenShouldReturnError()
-        {
-            // Arrange
-            const string ExpectedErrorMessage = "Error Was Thrown";
-            _tasksSubstitute.Repository.AddAsync(Arg.Any<WorkItem>(), Arg.Any<Guid>()).Throws(new Exception(ExpectedErrorMessage));
+        // Act
+        var results = Assert.ThrowsAsync<Exception>(async () => await _systemUnderTest.CreateWorkItemAsync(workItem: new()));
 
-            // Act
-            var results = Assert.ThrowsAsync<Exception>(async () => await _systemUnderTest.CreateWorkItemAsync(workItem: new()));
-
-            // Assert
-            results.Message.Should().Be(ExpectedErrorMessage);
-        }
+        // Assert
+        results.Message.Should().Be(ExpectedErrorMessage);
     }
 }

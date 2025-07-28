@@ -45,14 +45,29 @@ public class Repository<T>(
         return results.State;
     }
 
-    public void Update(T entity, Guid correlationId)
+    public async Task<EntityState> UpdateAsync(T entity, Guid correlationId)
     {
-        _dbSet.Update(entity);
+        _logger.LogInformation("UpdateAsync(Repository) Start: Entity {@entity} CorrelationId {@CorrelationId}", entity, correlationId);
+
+        var state = await DeleteAsync(entity, correlationId);
+        await SaveChangesAsync(correlationId);
+        if (state is EntityState.Deleted)
+        {
+            state = await AddAsync(entity: entity, correlationId: correlationId);
+        }
+
+        _logger.LogInformation("UpdateAsync(Repository) End: Entity {@entity} CorrelationId {@CorrelationId}", entity, correlationId);
+        return state;
     }
 
-    public void Delete(T entity, Guid correlationId)
+    public async Task<EntityState> DeleteAsync(T entity, Guid correlationId)
     {
-        _dbSet.Remove(entity);
+        _logger.LogInformation("DeleteAsync(Repository) Start: Entity {@entity} CorrelationId {@CorrelationId}", entity, correlationId);
+
+        var results = await _pollyPolicyWrapper.ExecuteWithPollyRetryPolicyAsync<Exception, EntityEntry<T>>(async () => _dbSet.Remove(entity));
+
+        _logger.LogInformation("DeleteAsync(Repository) End: Entity {@entity} CorrelationId {@CorrelationId}", entity, correlationId);
+        return results.State;
     }
 
     public async Task SaveChangesAsync(Guid correlationId)

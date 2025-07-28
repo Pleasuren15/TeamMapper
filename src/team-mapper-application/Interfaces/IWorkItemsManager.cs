@@ -3,10 +3,11 @@ using team_mapper_domain.Responses;
 
 namespace team_mapper_application.Interfaces
 {
-    public interface ITaskManager
+    public interface IWorkItemsManager
     {
-        Task<IEnumerable<WorkItem>> GetAllTasksAsync(Guid correlationId);
+        Task<IEnumerable<WorkItem>> GetAllWorkItemsAsync(Guid correlationId);
 
         Task<CreateWorkItemResponse> CreateWorkItemAsync(WorkItem workItem, Guid correlationId);
+        Task<WorkItem> UpdateWorkItemAsync(WorkItem workItem, Guid correlationId);
     }
 }

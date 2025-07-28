@@ -5,18 +5,18 @@ using team_mapper_domain.Responses;
 using team_mapper_infrastructure.RepositoryPattern;
 
 namespace team_mapper_application;
-public class TaskManager(ITaskService taskService, ILogger<TaskManager> logger) : ITaskManager
+public class WorkItemsManager(IWorkItemService taskService, ILogger<WorkItemsManager> logger) : IWorkItemsManager
 {
-    private readonly ITaskService _taskService = taskService;
-    private readonly ILogger<TaskManager> _logger = logger;
+    private readonly IWorkItemService _taskService = taskService;
+    private readonly ILogger<WorkItemsManager> _logger = logger;
 
-    public async Task<IEnumerable<WorkItem>> GetAllTasksAsync(Guid correlationId)
+    public async Task<IEnumerable<WorkItem>> GetAllWorkItemsAsync(Guid correlationId)
     {
         try
         {
             _logger.LogInformation("GetAllTasksAsync Start: CorrelationId {@CorrelationId}", correlationId);
 
-            var tasks = await _taskService.GetAllTasksAsync(correlationId: correlationId);
+            var tasks = await _taskService.GetAllWorkItemsAsync(correlationId: correlationId);
             return tasks;
         }
         catch (Exception exception)
@@ -50,6 +50,29 @@ public class TaskManager(ITaskService taskService, ILogger<TaskManager> logger) 
         finally
         {
             _logger.LogInformation("CreateWorkItemAsync End: WorkItemId {@WorkItemId} CorrelationId {@CorrelationId}", workItem.WorkItemId, correlationId);
+        }
+    }
+
+    public async Task<WorkItem> UpdateWorkItemAsync(WorkItem workItem, Guid correlationId)
+    {
+        try
+        {
+            _logger.LogInformation("UpdateWorkItemAsync Start: WorkItemId {@WorkItemId} CorrelationId {@CorrelationId}", workItem.WorkItemId, correlationId);
+
+            var tasks = await _taskService.UpdateWorkItemAsync(
+                workItem: workItem,
+                correlationId: correlationId);
+
+            return workItem;
+        }
+        catch (Exception exception)
+        {
+            _logger.LogError("UpdateWorkItemAsync:  Error WorkItemId {@WorkItemId} Message {@Message}", workItem.WorkItemId, exception.Message);
+            throw;
+        }
+        finally
+        {
+            _logger.LogInformation("UpdateWorkItemAsync End: WorkItemId {@WorkItemId} CorrelationId {@CorrelationId}", workItem.WorkItemId, correlationId);
         }
     }
 }

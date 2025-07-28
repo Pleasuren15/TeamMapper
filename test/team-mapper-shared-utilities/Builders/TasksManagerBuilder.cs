@@ -7,18 +7,18 @@ namespace team_mapper_shared_utilities.Builders;
 
 public class TasksManagerBuilder
 {
-    private ITaskService? _taskService { get; set; }
-    private readonly ILogger<TaskManager> TaskManagerlogger = Substitute.For<ILogger<TaskManager>>();
+    private IWorkItemService? _taskService { get; set; }
+    private readonly ILogger<WorkItemsManager> TaskManagerlogger = Substitute.For<ILogger<WorkItemsManager>>();
 
-    public TasksManagerBuilder WithTaskService(ITaskService taskService)
+    public TasksManagerBuilder WithTaskService(IWorkItemService taskService)
     {
         this._taskService = taskService;
         return this;
     }
 
-    public TaskManager Build()
+    public WorkItemsManager Build()
     {
-        return new TaskManager(
+        return new WorkItemsManager(
             taskService: _taskService!,
             logger: TaskManagerlogger);
     }
