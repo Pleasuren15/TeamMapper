@@ -21,12 +21,34 @@ public class WorkItemsManager(IWorkItemService taskService, ILogger<WorkItemsMan
         }
         catch (Exception exception)
         {
-            _logger.LogError("Error Message {@Message}", exception.Message);
+            _logger.LogError("GetAllTasksAsync Error: Message {@Message}", exception.Message);
             throw;
         }
         finally
         {
             _logger.LogInformation("GetAllTasksAsync Start: CorrelationId {@CorrelationId}", correlationId);
+        }
+    }
+
+    public async Task<IEnumerable<WorkItem>> GetExpiringWorkItemsAsync(Guid correlationId)
+    {
+        try
+        {
+            _logger.LogInformation("GetExpiringWorkItemsAsync Start: CorrelationId {@CorrelationId}", correlationId);
+
+            var allWorkItems = await _taskService.GetAllWorkItemsAsync(correlationId: correlationId);
+            var expiringTasks = allWorkItems.Where(task => task.EndDate > DateTime.Now && task.EndDate < DateTime.UtcNow.AddDays(7));
+
+            return allWorkItems;
+        }
+        catch (Exception exception)
+        {
+            _logger.LogError("GetExpiringWorkItemsAsync Error: Message {@Message}", exception.Message);
+            throw;
+        }
+        finally
+        {
+            _logger.LogInformation("GetExpiringWorkItemsAsync Start: CorrelationId {@CorrelationId}", correlationId);
         }
     }
 
@@ -44,7 +66,7 @@ public class WorkItemsManager(IWorkItemService taskService, ILogger<WorkItemsMan
         }
         catch (Exception exception)
         {
-            _logger.LogError("CreateWorkItemAsync:  Error WorkItemId {@WorkItemId} Message {@Message}", workItem.WorkItemId, exception.Message);
+            _logger.LogError("CreateWorkItemAsync Error: WorkItemId {@WorkItemId} Message {@Message}", workItem.WorkItemId, exception.Message);
             throw;
         }
         finally
@@ -67,7 +89,7 @@ public class WorkItemsManager(IWorkItemService taskService, ILogger<WorkItemsMan
         }
         catch (Exception exception)
         {
-            _logger.LogError("UpdateWorkItemAsync:  Error WorkItemId {@WorkItemId} Message {@Message}", workItem.WorkItemId, exception.Message);
+            _logger.LogError("UpdateWorkItemAsync Error: WorkItemId {@WorkItemId} Message {@Message}", workItem.WorkItemId, exception.Message);
             throw;
         }
         finally
