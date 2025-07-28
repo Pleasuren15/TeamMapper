@@ -1,18 +1,23 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using team_mapper_application.Interfaces;
 
 namespace team_mapper_application.Services;
 
-public class GetExpiringWorkItemsCron(
-    ILogger<GetExpiringWorkItemsCron> logger,
-    IWorkItemsManager workItemsManager,
-    IConfiguration configuration) : IHostedService, IDisposable
+public class GetExpiringWorkItemsCron : IHostedService, IDisposable
 {
-    private readonly ILogger<GetExpiringWorkItemsCron> _logger = logger;
-    private readonly IWorkItemsManager _workItemsManager = workItemsManager;
-    private readonly IConfiguration _configuration = configuration;
+    private readonly ILogger<GetExpiringWorkItemsCron> _logger;
+    private readonly IWorkItemsManager _workItemsManager;
+    private readonly IConfiguration _configuration;
+
+    public GetExpiringWorkItemsCron(IServiceProvider serviceProvider)
+    {
+        _logger = serviceProvider.GetRequiredService<ILogger<GetExpiringWorkItemsCron>>();
+        _workItemsManager = serviceProvider.GetRequiredService<IWorkItemsManager>();
+        _configuration = serviceProvider.GetRequiredService<IConfiguration>();
+    }
 
     private Timer? _timer;
 

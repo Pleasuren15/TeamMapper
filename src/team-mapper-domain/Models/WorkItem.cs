@@ -26,5 +26,9 @@ public class WorkItem
     [JsonPropertyName(nameof(IsComplete))]
     public bool IsComplete { get; set; } = false;
 
+    [JsonPropertyName(nameof(TeamMemberId))]
+    public Guid? TeamMemberId { get; set; }
 
+    [JsonPropertyName(nameof(TeamMember))]
+    public TeamMember? TeamMember { get; set; }
 }
