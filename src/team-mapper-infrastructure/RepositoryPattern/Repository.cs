@@ -22,6 +22,7 @@ public class Repository<T>(
 
         var results = await _pollyPolicyWrapper.ExecuteWithPollyRetryPolicyAsync<Exception, IEnumerable<T>>(
             async () => await _dbSet.AsNoTracking()
+
                                     .ToListAsync<T>());
 
         _logger.LogInformation("GetAllAsync(Repository) End: CorrelationId {@CorrelationId} Count {@Count}", correlationId, results.Count());
