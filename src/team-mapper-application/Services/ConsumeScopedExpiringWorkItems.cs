@@ -10,7 +10,7 @@ public class ConsumeScopedExpiringWorkItems(IServiceProvider serviceProvider) : 
 {
     private readonly IConfiguration _configuration = serviceProvider.GetRequiredService<IConfiguration>();
     private readonly ILogger<ConsumeScopedExpiringWorkItems> _logger = serviceProvider.GetRequiredService<ILogger<ConsumeScopedExpiringWorkItems>>();
-    Timer _timer;
+    Timer? _timer;
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
@@ -35,12 +35,10 @@ public class ConsumeScopedExpiringWorkItems(IServiceProvider serviceProvider) : 
 
     private async void ExecuteWork(object state)
     {
-        using (var scope = serviceProvider.CreateScope())
-        {
-            var scopedProcessingService =
-                scope.ServiceProvider.GetRequiredService<IExpiringWorkItemsCronService>();
+        using var scope = serviceProvider.CreateScope();
+        var scopedProcessingService =
+            scope.ServiceProvider.GetRequiredService<IExpiringWorkItemsCronService>();
 
-            await scopedProcessingService.ExecuteWork();
-        }
+        await scopedProcessingService.ExecuteWork();
     }
 }
