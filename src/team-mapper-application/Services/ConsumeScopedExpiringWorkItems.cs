@@ -6,12 +6,11 @@ using team_mapper_application.Interfaces;
 
 namespace team_mapper_application.Services;
 
-public class GetExpiringWorkItemsCron(IServiceProvider serviceProvider) : IHostedService, IDisposable
+public class ConsumeScopedExpiringWorkItems(IServiceProvider serviceProvider) : IHostedService
 {
-    private readonly ILogger<GetExpiringWorkItemsCron> _logger = serviceProvider.GetRequiredService<ILogger<GetExpiringWorkItemsCron>>();
-    private readonly IWorkItemsManager _workItemsManager = serviceProvider.GetRequiredService<IWorkItemsManager>();
     private readonly IConfiguration _configuration = serviceProvider.GetRequiredService<IConfiguration>();
-    private Timer? _timer;
+    private readonly ILogger<ConsumeScopedExpiringWorkItems> _logger = serviceProvider.GetRequiredService<ILogger<ConsumeScopedExpiringWorkItems>>();
+    Timer _timer;
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
@@ -29,24 +28,19 @@ public class GetExpiringWorkItemsCron(IServiceProvider serviceProvider) : IHoste
 
     public Task StopAsync(CancellationToken cancellationToken)
     {
+
         _timer!.Change(Timeout.Infinite, Convert.ToInt32(decimal.Zero));
         return Task.CompletedTask;
     }
 
-    public void ExecuteWork(object state)
+    private async void ExecuteWork(object state)
     {
-        _logger.LogInformation("Cron Job Set up");
-        var correlationId = Guid.NewGuid();
-        _logger.LogInformation("Executing GetExpiringWorkItemsCron Start: CorrelationId: {CorrelationId}", correlationId);
+        using (var scope = serviceProvider.CreateScope())
+        {
+            var scopedProcessingService =
+                scope.ServiceProvider.GetRequiredService<IExpiringWorkItemsCronService>();
 
-        var expringWorkItems = _workItemsManager.GetExpiringWorkItemsAsync(correlationId: Guid.NewGuid()).GetAwaiter().GetResult();
-
-        _logger.LogInformation("Executing GetExpiringWorkItemsCron End: CorrelationId: {CorrelationId}", correlationId);
-    }
-
-    public void Dispose()
-    {
-        _timer?.Dispose();
-        _logger.LogInformation("Disposing GetDueWorkItemsCron Resources.");
+            await scopedProcessingService.ExecuteWork();
+        }
     }
 }
