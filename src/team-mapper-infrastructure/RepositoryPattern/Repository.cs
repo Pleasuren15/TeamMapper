@@ -16,13 +16,20 @@ public class Repository<T>(
     private readonly IPollyPolicyWrapper _pollyPolicyWrapper = pollyPolicyWrapper;
     private readonly ILogger<Repository<T>> _logger = logger;
 
-    public async Task<IEnumerable<T>> GetAllAsync(Guid correlationId)
+    public async Task<IEnumerable<T>> GetAllAsync(Guid correlationId, string relationshipToInclude)
     {
         _logger.LogInformation("GetAllAsync(Repository) Start: CorrelationId {@CorrelationId}", correlationId);
 
-        var results = await _pollyPolicyWrapper.ExecuteWithPollyRetryPolicyAsync<Exception, IEnumerable<T>>(
-            async () => await _dbSet.AsNoTracking()
-                                    .ToListAsync<T>());
+        var results = null as IEnumerable<T>;
+
+        if (relationshipToInclude is not null)
+        {
+            results = await _pollyPolicyWrapper.ExecuteWithPollyRetryPolicyAsync<Exception, IEnumerable<T>>(async () => await _dbSet.AsNoTracking().Include(relationshipToInclude).ToListAsync<T>());
+        }
+        else
+        {
+            results = await _pollyPolicyWrapper.ExecuteWithPollyRetryPolicyAsync<Exception, IEnumerable<T>>(async () => await _dbSet.AsNoTracking().ToListAsync<T>());
+        }
 
         _logger.LogInformation("GetAllAsync(Repository) End: CorrelationId {@CorrelationId} Count {@Count}", correlationId, results.Count());
         return results;

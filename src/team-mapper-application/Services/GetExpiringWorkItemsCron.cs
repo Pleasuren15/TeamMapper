@@ -1,0 +1,52 @@
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using team_mapper_application.Interfaces;
+
+namespace team_mapper_application.Services;
+
+public class GetExpiringWorkItemsCron(IServiceProvider serviceProvider) : IHostedService, IDisposable
+{
+    private readonly ILogger<GetExpiringWorkItemsCron> _logger = serviceProvider.GetRequiredService<ILogger<GetExpiringWorkItemsCron>>();
+    private readonly IWorkItemsManager _workItemsManager = serviceProvider.GetRequiredService<IWorkItemsManager>();
+    private readonly IConfiguration _configuration = serviceProvider.GetRequiredService<IConfiguration>();
+    private Timer? _timer;
+
+    public Task StartAsync(CancellationToken cancellationToken)
+    {
+        var dueTimeInSeconds = Convert.ToInt32(_configuration["GetDueWorkItemsCron:DueTimeInSeconds"]);
+        var periodInSeconds = Convert.ToInt32(_configuration["GetDueWorkItemsCron:PeriodInSeconds"]);
+
+        _timer = new Timer(
+            callback: ExecuteWork!,
+            state: null,
+            dueTime: TimeSpan.FromSeconds(dueTimeInSeconds),
+            period: TimeSpan.FromSeconds(periodInSeconds));
+
+        return Task.CompletedTask;
+    }
+
+    public Task StopAsync(CancellationToken cancellationToken)
+    {
+        _timer!.Change(Timeout.Infinite, Convert.ToInt32(decimal.Zero));
+        return Task.CompletedTask;
+    }
+
+    public void ExecuteWork(object state)
+    {
+        _logger.LogInformation("Cron Job Set up");
+        var correlationId = Guid.NewGuid();
+        _logger.LogInformation("Executing GetExpiringWorkItemsCron Start: CorrelationId: {CorrelationId}", correlationId);
+
+        var expringWorkItems = _workItemsManager.GetExpiringWorkItemsAsync(correlationId: Guid.NewGuid()).GetAwaiter().GetResult();
+
+        _logger.LogInformation("Executing GetExpiringWorkItemsCron End: CorrelationId: {CorrelationId}", correlationId);
+    }
+
+    public void Dispose()
+    {
+        _timer?.Dispose();
+        _logger.LogInformation("Disposing GetDueWorkItemsCron Resources.");
+    }
+}

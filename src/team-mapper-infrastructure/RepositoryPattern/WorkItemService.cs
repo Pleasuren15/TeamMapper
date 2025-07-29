@@ -15,7 +15,7 @@ public class WorkItemService(
     {
         _logger.LogInformation("GetAllTasksAsync(TaskService) Start. CorrelationId {@CorrelationId}", correlationId);
 
-        var results = await _taskRepository.GetAllAsync(correlationId: correlationId);
+        var results = await _taskRepository.GetAllAsync(correlationId: correlationId, relationshipToInclude: nameof(TeamMember));
 
         _logger.LogInformation("GetAllTasksAsync(TaskService) End. CorrelationId {@CorrelationId} Count {@Count}", correlationId, results.Count());
         return results;

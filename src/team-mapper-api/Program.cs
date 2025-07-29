@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Serilog;
 using team_mapper_application;
 using team_mapper_application.Interfaces;
+using team_mapper_application.Services;
 using team_mapper_infrastructure;
 using team_mapper_infrastructure.Infrastructure;
 using team_mapper_infrastructure.Interfaces;
@@ -16,6 +17,7 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IWorkItemsManager, WorkItemsManager>();
 builder.Services.AddScoped<IWorkItemService, WorkItemService>();
 builder.Services.AddScoped<IPollyPolicyWrapper, PollyPolicyWrapper>();
+// builder.Services.AddHostedService<GetExpiringWorkItemsCron>();
 
 var connectionString = builder.Configuration.GetConnectionString("TeamMapperDb");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
