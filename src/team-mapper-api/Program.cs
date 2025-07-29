@@ -17,7 +17,8 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IWorkItemsManager, WorkItemsManager>();
 builder.Services.AddScoped<IWorkItemService, WorkItemService>();
 builder.Services.AddScoped<IPollyPolicyWrapper, PollyPolicyWrapper>();
-// builder.Services.AddHostedService<GetExpiringWorkItemsCron>();
+builder.Services.AddScoped<IExpiringWorkItemsCronService, ExpiringWorkItemsCronService>();
+builder.Services.AddHostedService<ConsumeScopedExpiringWorkItems>();
 
 var connectionString = builder.Configuration.GetConnectionString("TeamMapperDb");
 builder.Services.AddHealthChecks();
