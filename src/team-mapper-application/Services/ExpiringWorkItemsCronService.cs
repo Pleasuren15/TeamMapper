@@ -1,21 +1,43 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using team_mapper_application.Interfaces;
 
 namespace team_mapper_application.Services;
 
-public class ExpiringWorkItemsCronService(ILogger<ExpiringWorkItemsCronService> logger, IWorkItemsManager workItemsManager) : IExpiringWorkItemsCronService
+public class ExpiringWorkItemsCronService(IServiceProvider serviceProvider) : IHostedService
 {
-    private readonly ILogger<ExpiringWorkItemsCronService> _logger = logger;
-    private readonly IWorkItemsManager _workItemsManager = workItemsManager;
+    private readonly IConfiguration _configuration = serviceProvider.GetRequiredService<IConfiguration>();
+    private readonly ILogger<ExpiringWorkItemsCronService> _logger = serviceProvider.GetRequiredService<ILogger<ExpiringWorkItemsCronService>>();
+    Timer? _timer;
 
-    public async Task ExecuteWork()
+    public Task StartAsync(CancellationToken cancellationToken)
     {
-        _logger.LogInformation("Cron Job Set up");
-        var correlationId = Guid.NewGuid();
-        _logger.LogInformation("Executing GetExpiringWorkItemsCron Start: CorrelationId: {CorrelationId}", correlationId);
+        var dueTimeInSeconds = Convert.ToInt32(_configuration["GetDueWorkItemsCron:DueTimeInSeconds"]);
+        var periodInSeconds = Convert.ToInt32(_configuration["GetDueWorkItemsCron:PeriodInSeconds"]);
 
-        var expringWorkItems = await _workItemsManager.GetExpiringWorkItemsAsync(correlationId: Guid.NewGuid()); ;
+        _timer = new Timer(
+            callback: ExecuteWork!,
+            state: null,
+            dueTime: TimeSpan.FromSeconds(dueTimeInSeconds),
+            period: TimeSpan.FromSeconds(periodInSeconds));
 
-        _logger.LogInformation("Executing GetExpiringWorkItemsCron End: CorrelationId: {CorrelationId}", correlationId);
+        return Task.CompletedTask;
+    }
+
+    public Task StopAsync(CancellationToken cancellationToken)
+    {
+        _timer!.Change(Timeout.Infinite, Convert.ToInt32(decimal.Zero));
+        return Task.CompletedTask;
+    }
+
+    private async void ExecuteWork(object state)
+    {
+        using var scope = serviceProvider.CreateScope();
+        var scopedProcessingService =
+            scope.ServiceProvider.GetRequiredService<IExpiringWorkItemsService>();
+
+        await scopedProcessingService.ExecuteWork();
     }
 }

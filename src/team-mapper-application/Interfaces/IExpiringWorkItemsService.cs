@@ -1,6 +1,6 @@
 ﻿namespace team_mapper_application.Interfaces;
 
-public interface IExpiringWorkItemsCronService
+public interface IExpiringWorkItemsService
 {
     Task ExecuteWork();
 }
