@@ -34,3 +34,4 @@ src/team-mapper-web/package-lock.json
 /bin/Debug
 /test/team-mapper-shared-utilities/obj
 /test/team-mapper-shared-utilities/bin/Debug/net9.0
+/src/team-mapper-messaging-api/obj
