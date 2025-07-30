@@ -17,12 +17,14 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IWorkItemsManager, WorkItemsManager>();
 builder.Services.AddScoped<IWorkItemService, WorkItemService>();
 builder.Services.AddScoped<IPollyPolicyWrapper, PollyPolicyWrapper>();
-// builder.Services.AddHostedService<GetExpiringWorkItemsCron>();
+builder.Services.AddScoped<IExpiringWorkItemsService, ExpiringWorkItemsService>();
+builder.Services.AddHostedService<ExpiringWorkItemsCronService>();
 
 var connectionString = builder.Configuration.GetConnectionString("TeamMapperDb");
+builder.Services.AddHealthChecks();
+builder.Services.AddHealthChecks().AddDbContextCheck<ApplicationDbContext>();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
-builder.Services.AddHealthChecks();
 builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
 
 builder.Services.AddCors(options =>
@@ -50,6 +52,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapHealthChecks("/health");
+app.MapHealthChecks("/efcorehealth");
 app.UseHttpsRedirection();
 app.UseCors();
 app.MapControllers();
