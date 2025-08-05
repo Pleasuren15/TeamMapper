@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Ardalis.GuardClauses;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -14,9 +15,9 @@ public class ExpiringWorkItemsCronService(IServiceProvider serviceProvider) : IH
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
+        var dueTimeInSeconds = Convert.ToInt32(Guard.Against.NullOrEmpty(_configuration["GetDueWorkItemsCron:DueTimeInSeconds"]));
+        var periodInSeconds = Convert.ToInt32(Guard.Against.NullOrEmpty(_configuration["GetDueWorkItemsCron:PeriodInSeconds"]));
         _logger.LogInformation("StartAsync ExpiringWorkItemsCronService Start: {@time}", DateTimeOffset.Now);
-        var dueTimeInSeconds = Convert.ToInt32(_configuration["GetDueWorkItemsCron:DueTimeInSeconds"]);
-        var periodInSeconds = Convert.ToInt32(_configuration["GetDueWorkItemsCron:PeriodInSeconds"]);
 
         _timer = new Timer(
             callback: ExecuteWork!,
