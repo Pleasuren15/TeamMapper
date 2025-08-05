@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Ardalis.GuardClauses;
+using Microsoft.Extensions.Configuration;
 using RabbitMQ.Client;
 using team_mapper_application.Interfaces;
 
@@ -10,11 +11,11 @@ public class RabbitMqWrapper(IConfiguration configuration) : IRabbitMqWrapper
 
     public Task PublishMessagesAsync()
     {
-        var hostConnectionString = _configuration.GetConnectionString("RabbitMqHost");
-        var clintentProvidedName = _configuration["RabbitMq:ClientProvideName"];
-        var exchangeName = _configuration["RabbitMq:ExchangeName"];
-        var queueName = _configuration["RabbitMq:QueueName"];
-        var routingKey = _configuration["RabbitMq:RoutingKey"];
+        var hostConnectionString = Guard.Against.NullOrEmpty(input: _configuration.GetConnectionString("RabbitMqHost"));
+        var clintentProvidedName = Guard.Against.NullOrEmpty(input: _configuration["RabbitMq:ClientProvideName"]);
+        var exchangeName = Guard.Against.NullOrEmpty(input: _configuration["RabbitMq:ExchangeName"]);
+        var queueName = Guard.Against.NullOrEmpty(input: _configuration["RabbitMq:QueueName"]);
+        var routingKey = Guard.Against.NullOrEmpty(input: _configuration["RabbitMq:RoutingKey"]);
 
         var connectionFactory = new ConnectionFactory()
         {
@@ -22,6 +23,6 @@ public class RabbitMqWrapper(IConfiguration configuration) : IRabbitMqWrapper
             ClientProvidedName = clintentProvidedName
         };
 
-        return Task.CompletedTask''
+        return Task.CompletedTask;
     }
 }
