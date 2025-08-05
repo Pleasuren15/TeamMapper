@@ -15,17 +15,25 @@ public class ExpiringWorkItemsCronService(IServiceProvider serviceProvider) : IH
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
-        var dueTimeInSeconds = Convert.ToInt32(Guard.Against.NullOrEmpty(_configuration["GetDueWorkItemsCron:DueTimeInSeconds"]));
-        var periodInSeconds = Convert.ToInt32(Guard.Against.NullOrEmpty(_configuration["GetDueWorkItemsCron:PeriodInSeconds"]));
-        _logger.LogInformation("StartAsync ExpiringWorkItemsCronService Start: {@time}", DateTimeOffset.Now);
+        var serviceEnabled = Convert.ToBoolean(Guard.Against.NullOrEmpty(_configuration["GetDueWorkItemsCron:Enabled"]));
+        if (serviceEnabled)
+        {
+            var dueTimeInSeconds = Convert.ToInt32(Guard.Against.NullOrEmpty(_configuration["GetDueWorkItemsCron:DueTimeInSeconds"]));
+            var periodInSeconds = Convert.ToInt32(Guard.Against.NullOrEmpty(_configuration["GetDueWorkItemsCron:PeriodInSeconds"]));
+            _logger.LogInformation("StartAsync ExpiringWorkItemsCronService Start: {@time}", DateTimeOffset.Now);
 
-        _timer = new Timer(
-            callback: ExecuteWork!,
-            state: null,
-            dueTime: TimeSpan.FromSeconds(dueTimeInSeconds),
-            period: TimeSpan.FromSeconds(periodInSeconds));
+            _timer = new Timer(
+                callback: ExecuteWork!,
+                state: null,
+                dueTime: TimeSpan.FromSeconds(dueTimeInSeconds),
+                period: TimeSpan.FromSeconds(periodInSeconds));
 
-        _logger.LogInformation("StartAsync ExpiringWorkItemsCronService End: {@time}", DateTimeOffset.Now);
+            _logger.LogInformation("StartAsync ExpiringWorkItemsCronService End: {@time}", DateTimeOffset.Now);
+        }
+        else
+        {
+            _logger.LogInformation("ExpiringWorkItemsCronService is disabled by configuration.");
+        }
         return Task.CompletedTask;
     }
 
