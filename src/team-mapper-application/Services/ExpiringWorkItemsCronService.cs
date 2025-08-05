@@ -44,7 +44,7 @@ public class ExpiringWorkItemsCronService(IServiceProvider serviceProvider) : IH
         var scopedProcessingService =
             scope.ServiceProvider.GetRequiredService<IExpiringWorkItemsService>();
 
-        await scopedProcessingService.ExecuteWork();
+        await scopedProcessingService.ExecuteWorkAsync();
         _logger.LogInformation("ExpiringWorkItemsCronService End: {@time}", DateTimeOffset.Now);
     }
 }

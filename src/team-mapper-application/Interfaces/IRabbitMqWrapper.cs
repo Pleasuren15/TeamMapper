@@ -2,7 +2,7 @@
 
 namespace team_mapper_application.Interfaces;
 
-internal interface IRabbitMqWrapper
+public interface IRabbitMqWrapper
 {
-    Task PublishMessagesAsync(List<WorkItem>  workItems);
+    Task PublishMessagesAsync(IEnumerable<WorkItem> workItems);
 }

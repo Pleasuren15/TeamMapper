@@ -13,9 +13,9 @@ public class RabbitMqWrapper(IConfiguration configuration, ILogger<RabbitMqWrapp
     private readonly IConfiguration _configuration = configuration;
     private readonly ILogger<RabbitMqWrapper> _logger = logger;
 
-    public async Task PublishMessagesAsync(List<WorkItem> workItems)
+    public async Task PublishMessagesAsync(IEnumerable<WorkItem> workItems)
     {
-        _logger.LogInformation("RabbitMqWrapper PublishMessagesAsync Start: {@Time}, Count {@Count}", DateTimeOffset.Now, workItems.Count);
+        _logger.LogInformation("RabbitMqWrapper PublishMessagesAsync Start: {@Time}, Count {@Count}", DateTimeOffset.Now, workItems.Count());
 
         var hostConnectionString = Guard.Against.NullOrEmpty(input: _configuration.GetConnectionString("RabbitMqHost"));
         var clintentProvidedName = Guard.Against.NullOrEmpty(input: _configuration["RabbitMq:ClientProvideName"]);
@@ -45,6 +45,6 @@ public class RabbitMqWrapper(IConfiguration configuration, ILogger<RabbitMqWrapp
             await channel.BasicPublishAsync(exchangeName, routingKey: routingKey, messageBody);
         }
 
-        _logger.LogInformation("RabbitMqWrapper PublishMessagesAsync Start: {@Time}, Count {@Count}", DateTimeOffset.Now, workItems.Count);
+        _logger.LogInformation("RabbitMqWrapper PublishMessagesAsync Start: {@Time}, Count {@Count}", DateTimeOffset.Now, workItems.Count());
     }
 }

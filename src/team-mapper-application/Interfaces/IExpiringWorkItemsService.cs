@@ -2,5 +2,5 @@
 
 public interface IExpiringWorkItemsService
 {
-    Task ExecuteWork();
+    Task ExecuteWorkAsync();
 }
