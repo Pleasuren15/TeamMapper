@@ -14,6 +14,7 @@ public class ExpiringWorkItemsCronService(IServiceProvider serviceProvider) : IH
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
+        _logger.LogInformation("StartAsync ExpiringWorkItemsCronService Start: {@time}", DateTimeOffset.Now);
         var dueTimeInSeconds = Convert.ToInt32(_configuration["GetDueWorkItemsCron:DueTimeInSeconds"]);
         var periodInSeconds = Convert.ToInt32(_configuration["GetDueWorkItemsCron:PeriodInSeconds"]);
 
@@ -23,21 +24,26 @@ public class ExpiringWorkItemsCronService(IServiceProvider serviceProvider) : IH
             dueTime: TimeSpan.FromSeconds(dueTimeInSeconds),
             period: TimeSpan.FromSeconds(periodInSeconds));
 
+        _logger.LogInformation("StartAsync ExpiringWorkItemsCronService End: {@time}", DateTimeOffset.Now);
         return Task.CompletedTask;
     }
 
     public Task StopAsync(CancellationToken cancellationToken)
     {
+        _logger.LogInformation("StopAsync ExpiringWorkItemsCronService Start: {@time}", DateTimeOffset.Now);
         _timer!.Change(Timeout.Infinite, Convert.ToInt32(decimal.Zero));
+        _logger.LogInformation("StopAsync ExpiringWorkItemsCronService End: {@time}", DateTimeOffset.Now);
         return Task.CompletedTask;
     }
 
     private async void ExecuteWork(object state)
     {
+        _logger.LogInformation("ExpiringWorkItemsCronService Start: {@time}", DateTimeOffset.Now);
         using var scope = serviceProvider.CreateScope();
         var scopedProcessingService =
             scope.ServiceProvider.GetRequiredService<IExpiringWorkItemsService>();
 
         await scopedProcessingService.ExecuteWork();
+        _logger.LogInformation("ExpiringWorkItemsCronService End: {@time}", DateTimeOffset.Now);
     }
 }
