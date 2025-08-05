@@ -13,7 +13,7 @@ public class ExpiringWorkItemsService(ILogger<ExpiringWorkItemsCronService> logg
         var correlationId = Guid.NewGuid();
         _logger.LogInformation("Executing GetExpiringWorkItemsCron Start: CorrelationId: {CorrelationId}", correlationId);
 
-        var expringWorkItems = await _workItemsManager.GetExpiringWorkItemsAsync(correlationId: correlationId); ;
+        var expringWorkItems = await _workItemsManager.GetExpiringWorkItemsAsync(correlationId: correlationId);
 
         _logger.LogInformation("Executing GetExpiringWorkItemsCron End: CorrelationId: {CorrelationId}", correlationId);
     }
