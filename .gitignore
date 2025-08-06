@@ -36,3 +36,6 @@ src/team-mapper-web/package-lock.json
 /test/team-mapper-shared-utilities/bin/Debug/net9.0
 /src/team-mapper-messaging-api/obj
 /src/team-mapper-messaging-api/bin/Debug/net9.0
+/src/packages
+/test/unit-tests/team-mapper-notification-api/team-mapper-notification-api/bin/Debug/net9.0
+/test/unit-tests/team-mapper-notification-api/team-mapper-notification-api/obj

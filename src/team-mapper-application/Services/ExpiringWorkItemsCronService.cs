@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Ardalis.GuardClauses;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -14,30 +15,44 @@ public class ExpiringWorkItemsCronService(IServiceProvider serviceProvider) : IH
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
-        var dueTimeInSeconds = Convert.ToInt32(_configuration["GetDueWorkItemsCron:DueTimeInSeconds"]);
-        var periodInSeconds = Convert.ToInt32(_configuration["GetDueWorkItemsCron:PeriodInSeconds"]);
+        var serviceEnabled = Convert.ToBoolean(Guard.Against.NullOrEmpty(_configuration["GetDueWorkItemsCron:Enabled"]));
+        if (serviceEnabled)
+        {
+            var dueTimeInSeconds = Convert.ToInt32(Guard.Against.NullOrEmpty(_configuration["GetDueWorkItemsCron:DueTimeInSeconds"]));
+            var periodInSeconds = Convert.ToInt32(Guard.Against.NullOrEmpty(_configuration["GetDueWorkItemsCron:PeriodInSeconds"]));
+            _logger.LogInformation("StartAsync ExpiringWorkItemsCronService Start: {@time}", DateTimeOffset.Now);
 
-        _timer = new Timer(
-            callback: ExecuteWork!,
-            state: null,
-            dueTime: TimeSpan.FromSeconds(dueTimeInSeconds),
-            period: TimeSpan.FromSeconds(periodInSeconds));
+            _timer = new Timer(
+                callback: ExecuteWork!,
+                state: null,
+                dueTime: TimeSpan.FromSeconds(dueTimeInSeconds),
+                period: TimeSpan.FromSeconds(periodInSeconds));
 
+            _logger.LogInformation("StartAsync ExpiringWorkItemsCronService End: {@time}", DateTimeOffset.Now);
+        }
+        else
+        {
+            _logger.LogInformation("ExpiringWorkItemsCronService is disabled by configuration.");
+        }
         return Task.CompletedTask;
     }
 
     public Task StopAsync(CancellationToken cancellationToken)
     {
+        _logger.LogInformation("StopAsync ExpiringWorkItemsCronService Start: {@time}", DateTimeOffset.Now);
         _timer!.Change(Timeout.Infinite, Convert.ToInt32(decimal.Zero));
+        _logger.LogInformation("StopAsync ExpiringWorkItemsCronService End: {@time}", DateTimeOffset.Now);
         return Task.CompletedTask;
     }
 
     private async void ExecuteWork(object state)
     {
+        _logger.LogInformation("ExpiringWorkItemsCronService Start: {@time}", DateTimeOffset.Now);
         using var scope = serviceProvider.CreateScope();
         var scopedProcessingService =
             scope.ServiceProvider.GetRequiredService<IExpiringWorkItemsService>();
 
-        await scopedProcessingService.ExecuteWork();
+        await scopedProcessingService.ExecuteWorkAsync();
+        _logger.LogInformation("ExpiringWorkItemsCronService End: {@time}", DateTimeOffset.Now);
     }
 }
