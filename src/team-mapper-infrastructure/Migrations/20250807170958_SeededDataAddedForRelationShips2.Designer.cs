@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using team_mapper_infrastructure.Infrastructure;
 
@@ -11,9 +12,11 @@ using team_mapper_infrastructure.Infrastructure;
 namespace team_mapper_infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250807170958_SeededDataAddedForRelationShips2")]
+    partial class SeededDataAddedForRelationShips2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,6 +78,26 @@ namespace team_mapper_infrastructure.Migrations
                     b.ToTable("TeamMembers");
 
                     b.HasAnnotation("Relational:JsonPropertyName", "TeamMember");
+
+                    b.HasData(
+                        new
+                        {
+                            TeamMemberId = new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa6"),
+                            Email = "PleasureNdhlovu@gmail.com",
+                            Name = "Pleasure Ndhlovu"
+                        },
+                        new
+                        {
+                            TeamMemberId = new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa7"),
+                            Email = "CassyJohnson@gmail.com",
+                            Name = "Cassy Johnson"
+                        },
+                        new
+                        {
+                            TeamMemberId = new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa8"),
+                            Email = "BridgetCraf@gmail.com",
+                            Name = "Bridget Craft"
+                        });
                 });
 
             modelBuilder.Entity("team_mapper_domain.Models.WorkItem", b =>
@@ -121,6 +144,41 @@ namespace team_mapper_infrastructure.Migrations
                     b.ToTable("WorkItems");
 
                     b.HasAnnotation("Relational:JsonPropertyName", "WorkItem");
+
+                    b.HasData(
+                        new
+                        {
+                            WorkItemId = new Guid("1fa85f64-5717-4562-b3fc-2c963f66afa6"),
+                            Description = "Description 1",
+                            EndDate = new DateTime(2025, 8, 14, 19, 9, 58, 136, DateTimeKind.Local).AddTicks(4238),
+                            IsComplete = false,
+                            TaskCategory = 50,
+                            TaskPriority = 0,
+                            TeamMemberId = new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa6"),
+                            Title = "Task1"
+                        },
+                        new
+                        {
+                            WorkItemId = new Guid("2fa85f64-5717-4562-b3fc-2c963f66afa6"),
+                            Description = "Description 2",
+                            EndDate = new DateTime(2025, 8, 14, 19, 9, 58, 138, DateTimeKind.Local).AddTicks(6617),
+                            IsComplete = false,
+                            TaskCategory = 50,
+                            TaskPriority = 0,
+                            TeamMemberId = new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa7"),
+                            Title = "Task2"
+                        },
+                        new
+                        {
+                            WorkItemId = new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa6"),
+                            Description = "Description 3",
+                            EndDate = new DateTime(2025, 8, 14, 19, 9, 58, 138, DateTimeKind.Local).AddTicks(6648),
+                            IsComplete = false,
+                            TaskCategory = 50,
+                            TaskPriority = 0,
+                            TeamMemberId = new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa8"),
+                            Title = "Task3"
+                        });
                 });
 
             modelBuilder.Entity("team_mapper_domain.Models.ExpiringWorkItem", b =>
