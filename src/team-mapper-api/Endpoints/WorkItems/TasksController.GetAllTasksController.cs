@@ -5,7 +5,7 @@ namespace team_mapper_api.Endpoints.Tasks;
 
 public partial class TasksController : ControllerBase
 {
-    [HttpGet("/tasks")]
+    [HttpGet("/workitems")]
     public async Task<IActionResult> GetAllTasksAsync()
     {
         var correlationId = Request.GetCorrelationId();

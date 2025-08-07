@@ -3,7 +3,7 @@ using team_mapper_application.Interfaces;
 
 namespace team_mapper_api.Endpoints.Tasks;
 
-[Route("tasks")]
+[Route("/workitems")]
 [ApiController]
 public partial class TasksController(ILogger<TasksController> logger, IWorkItemsManager taskManager) : ControllerBase
 {
