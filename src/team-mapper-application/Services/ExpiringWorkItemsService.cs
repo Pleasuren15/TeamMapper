@@ -24,6 +24,7 @@ public class ExpiringWorkItemsService(
             expringWorkItems.Add(new ExpiringWorkItem
             {
                 ExpiringWorkItemId = Guid.NewGuid(),
+                Title = workItem.Title,
                 EndDate = workItem.EndDate,
                 IsNotificationSent = false,
                 WorkItemId = workItem.WorkItemId,

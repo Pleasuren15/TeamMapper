@@ -11,6 +11,9 @@ public class WorkItem
     public Guid WorkItemId { get; set; } = Guid.NewGuid();
 
     [Required]
+    [JsonPropertyName(nameof(Title))]
+    public string Title { get; set; } = string.Empty;
+
     [JsonPropertyName(nameof(Description))]
     public string Description { get; set; } = string.Empty;
 
