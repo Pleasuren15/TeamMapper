@@ -5,6 +5,7 @@ namespace team_mapper_domain.Models;
 
 public class ExpiringWorkItem
 {
+    [Key]
     [JsonPropertyName(nameof(ExpiringWorkItemId))]
     public Guid ExpiringWorkItemId { get; set; }
 
