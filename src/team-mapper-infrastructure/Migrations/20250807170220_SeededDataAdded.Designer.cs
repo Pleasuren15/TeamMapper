@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using team_mapper_infrastructure.Infrastructure;
 
@@ -11,9 +12,11 @@ using team_mapper_infrastructure.Infrastructure;
 namespace team_mapper_infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250807170220_SeededDataAdded")]
+    partial class SeededDataAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,6 +78,26 @@ namespace team_mapper_infrastructure.Migrations
                     b.ToTable("TeamMembers");
 
                     b.HasAnnotation("Relational:JsonPropertyName", "TeamMember");
+
+                    b.HasData(
+                        new
+                        {
+                            TeamMemberId = new Guid("6c7adab1-b9f5-45d4-a54c-d5e6b7e8a479"),
+                            Email = "PleasureNdhlovu@gmail.com",
+                            Name = "Pleasure Ndhlovu"
+                        },
+                        new
+                        {
+                            TeamMemberId = new Guid("6b29b98d-dd9f-4d05-9519-224eb1010729"),
+                            Email = "CassyJohnson@gmail.com",
+                            Name = "Cassy Johnson"
+                        },
+                        new
+                        {
+                            TeamMemberId = new Guid("53348d0a-30b6-47b4-b385-0c0cc686350b"),
+                            Email = "BridgetCraf@gmail.com",
+                            Name = "Bridget Craft"
+                        });
                 });
 
             modelBuilder.Entity("team_mapper_domain.Models.WorkItem", b =>

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using team_mapper_infrastructure.Infrastructure;
 
@@ -11,9 +12,11 @@ using team_mapper_infrastructure.Infrastructure;
 namespace team_mapper_infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250807163410_ExpiringWorkItemModelAdded")]
+    partial class ExpiringWorkItemModelAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,11 +39,6 @@ namespace team_mapper_infrastructure.Migrations
                     b.Property<bool>("IsNotificationSent")
                         .HasColumnType("bit")
                         .HasAnnotation("Relational:JsonPropertyName", "IsNotificationSent");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasAnnotation("Relational:JsonPropertyName", "Title");
 
                     b.Property<Guid>("WorkItemId")
                         .HasColumnType("uniqueidentifier")
@@ -72,7 +70,7 @@ namespace team_mapper_infrastructure.Migrations
 
                     b.HasKey("TeamMemberId");
 
-                    b.ToTable("TeamMembers");
+                    b.ToTable("TeamMember");
 
                     b.HasAnnotation("Relational:JsonPropertyName", "TeamMember");
                 });
@@ -108,11 +106,6 @@ namespace team_mapper_infrastructure.Migrations
                     b.Property<Guid?>("TeamMemberId")
                         .HasColumnType("uniqueidentifier")
                         .HasAnnotation("Relational:JsonPropertyName", "TeamMemberId");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasAnnotation("Relational:JsonPropertyName", "Title");
 
                     b.HasKey("WorkItemId");
 

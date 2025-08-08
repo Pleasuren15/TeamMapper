@@ -13,7 +13,7 @@ public class RabbitMqWrapper(IConfiguration configuration, ILogger<RabbitMqWrapp
     private readonly IConfiguration _configuration = configuration;
     private readonly ILogger<RabbitMqWrapper> _logger = logger;
 
-    public async Task PublishMessagesAsync(IEnumerable<WorkItem> workItems)
+    public async Task PublishMessagesAsync(IEnumerable<ExpiringWorkItem> workItems)
     {
         _logger.LogInformation("RabbitMqWrapper PublishMessagesAsync Start: {@Time}, Count {@Count}", DateTimeOffset.Now, workItems.Count());
 
