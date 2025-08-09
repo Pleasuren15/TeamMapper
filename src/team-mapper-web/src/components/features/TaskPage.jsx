@@ -68,7 +68,7 @@ function TaskPage() {
           <TaskInformation title="Total Tasks" number={tasks.length} description="5 ongoing, 3 Complete" />
           <TaskInformation title="High Priority" number={tasks.filter(e => e.TaskPriority === HIGH_PRIOTITY_VALUE).length} description="50% of all tasks" />
           <TaskInformation title="Team Members" number={new Set(tasks.map(task => task.TeamMemberId)).size} description="Working on 8 tasks" />
-          <TaskInformation title="Categories" number={15} description="Across all projects" />
+          <TaskInformation title="Categories" number={new Set(tasks.map(task => task.TaskCategory)).size} description="Across all projects" />
         </div>
         <div className="task-content-visualisation-content">
           <div className="task-content-visualisation-content-header">
