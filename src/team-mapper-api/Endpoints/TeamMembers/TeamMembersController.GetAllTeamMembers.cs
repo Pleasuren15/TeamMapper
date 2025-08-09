@@ -5,7 +5,7 @@ namespace team_mapper_api.Endpoints.TeamMembers
 {
     public partial class TeamMembersController
     {
-        [HttpGet("/workitems")]
+        [HttpGet("/teammembers")]
         public async Task<IActionResult> GetAllTeamMembersAsync()
         {
             var correlationId = Request.GetCorrelationId();
