@@ -7,15 +7,31 @@ import task from '../../assets/icons/task.svg';
 import TaskInformation from '../common/TaskInformation';
 import TaskVisualisation from './TaskVisualisation';
 import TeamView from './TeamView';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import logo from '../../assets/icons/logo.svg';
-import alert from '../../assets/icons/alert.svg';
-import question from '../../assets/icons/question.svg';
+import getAllTasksAsync from '../../utils/axiosClient.jsx';
 
 function TaskPage() {
   const [isTeamViewVisible, setIsTeamViewVisible] = useState(true);
+  const [tasks, setTasks] = useState([]);
+  const HIGH_PRIOTITY_VALUE = 2
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        var response = await getAllTasksAsync();
+        setTasks(response);
+      }
+      catch (error) {
+        console.error('Error fetching tasks:', error);
+      }
+    }
+    
+    fetchData();
+  }, []);
 
   return (
+    
     <div className="task-content">
       <div className="task-content-navigation">
         <h3>
@@ -49,8 +65,8 @@ function TaskPage() {
         <h2>Task Visualisation</h2>
         <p>Visualise and manage your tasks with an interactive circle-based visualisation</p>
         <div className="task-information-container">
-          <TaskInformation title="Total Tasks" number={8} description="5 ongoing, 3 Complete" />
-          <TaskInformation title="High Priority" number={4} description="50% of all tasks" />
+          <TaskInformation title="Total Tasks" number={tasks.length} description="5 ongoing, 3 Complete" />
+          <TaskInformation title="High Priority" number={tasks.filter(e => e.TaskPriority === HIGH_PRIOTITY_VALUE).length} description="50% of all tasks" />
           <TaskInformation title="Team Members" number={5} description="Working on 8 tasks" />
           <TaskInformation title="Categories" number={15} description="Across all projects" />
         </div>
