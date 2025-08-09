@@ -9,7 +9,7 @@ import TaskVisualisation from './TaskVisualisation';
 import TeamView from './TeamView';
 import { useEffect, useState } from 'react';
 import logo from '../../assets/icons/logo.svg';
-import getAllTasksAsync from '../../utils/axiosClient.jsx';
+import { getAllTasksAsync } from '../../utils/axiosClient.jsx';
 
 function TaskPage() {
   const [isTeamViewVisible, setIsTeamViewVisible] = useState(true);
@@ -19,8 +19,8 @@ function TaskPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        var response = await getAllTasksAsync();
-        setTasks(response);
+        var allTasksResponse = await getAllTasksAsync();
+        setTasks(allTasksResponse);
       }
       catch (error) {
         console.error('Error fetching tasks:', error);
