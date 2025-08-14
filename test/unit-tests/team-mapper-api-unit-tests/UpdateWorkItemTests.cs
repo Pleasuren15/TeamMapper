@@ -32,7 +32,7 @@ public class UpdateWorkItemTests
         {
             // Arrange
             var workItem = new WorkItem();
-            _tasksSubstitute.Repository.UpdateAsync(Arg.Is(workItem), Arg.Any<Guid>()).Returns(EntityState.Added);
+            _tasksSubstitute.TaskService.UpdateWorkItemAsync(Arg.Is(workItem), Arg.Any<Guid>()).Returns(workItem.WorkItemId);
 
             // Act
             var results = await _systemUnderTest.UpdateWorkItemAsync(workItem: workItem);
@@ -48,13 +48,13 @@ public class UpdateWorkItemTests
         {
             // Arrange
             var workItem = new WorkItem();
-            _tasksSubstitute.Repository.UpdateAsync(Arg.Is(workItem), Arg.Any<Guid>()).Returns(EntityState.Added);
+            _tasksSubstitute.TaskService.UpdateWorkItemAsync(Arg.Is(workItem), Arg.Any<Guid>()).Returns(workItem.WorkItemId);
 
             // Act
             var results = await _systemUnderTest.UpdateWorkItemAsync(workItem: workItem);
 
             // Assert
-            _ = _tasksSubstitute.Repository.Received(1).SaveChangesAsync(Arg.Any<Guid>());
+            _ = _tasksSubstitute.TaskService.Received(1).UpdateWorkItemAsync(Arg.Is(workItem), Arg.Any<Guid>());
         }
 
         [Test]
@@ -62,7 +62,7 @@ public class UpdateWorkItemTests
         {
             // Arrange
             const string ExpectedErrorMessage = "Error Was Thrown";
-            _tasksSubstitute.Repository.UpdateAsync(Arg.Any<WorkItem>(), Arg.Any<Guid>()).Throws(new Exception(ExpectedErrorMessage));
+            _tasksSubstitute.TaskService.UpdateWorkItemAsync(Arg.Any<WorkItem>(), Arg.Any<Guid>()).Throws(new Exception(ExpectedErrorMessage));
 
             // Act
             var results = Assert.ThrowsAsync<Exception>(async () => await _systemUnderTest.UpdateWorkItemAsync(workItem: new()));

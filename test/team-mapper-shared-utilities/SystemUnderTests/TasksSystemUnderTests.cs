@@ -11,7 +11,8 @@ public static class TasksSystemUnderTests
     public static TasksController CreateSystemUndeTest(TasksSubstitute tasksSubstitute)
     {
         tasksSubstitute.TaskService = new TaskServiceBuilder()
-            .WithTaskRepository(tasksSubstitute.Repository)
+            .WithDbContext(tasksSubstitute.DbContext)
+            .WithPollyPolicyWrapper(tasksSubstitute.PollyPolicyWrapper)
             .Build();
 
         tasksSubstitute.TaskManager = new TasksManagerBuilder()
