@@ -29,7 +29,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "team-mapper-messaging-api",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "unit-tests", "unit-tests", "{69D98C21-B59B-44D2-880E-2059156C7D2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "team-mapper-messagin-api", "..\test\unit-tests\team-mapper-notification-api\team-mapper-notification-api\team-mapper-messaging-api.csproj", "{6D56F2FE-77E2-4B7F-9752-2A96E7364D5C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "team-mapper-messagin-api", "..\test\unit-tests\team-mapper-notification-api\team-mapper-notification-api\team-mapper-messagin-api.csproj", "{6D56F2FE-77E2-4B7F-9752-2A96E7364D5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

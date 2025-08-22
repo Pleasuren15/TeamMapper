@@ -1,26 +1,19 @@
 import '../../assets/styles/TaskVisualisation.css'
 import refresh from '../../assets/icons/refresh.svg'
 import { getRandomPosition, getRandomColor } from '../../utils/taskvisualizerhelper'
-import { getAllTeamMembersAsync } from '../../utils/axiosClient.jsx';
-import { useEffect, useState } from 'react';
+
+const users = [
+    { name: "Pleasure", tasks: 5 },
+    { name: "dsad", tasks: 7 },
+    { name: "Cate", tasks: 5 },
+    { name: "dsad", tasks: 10 },
+    { name: "dsad", tasks: 7 },
+    { name: "Cate", tasks: 5 },
+    { name: "dsad", tasks: 1 },
+];
 
 function TaskVisualisation() {
-    const [teamMembers, setTeamMembers] = useState([]);
-    const positions = teamMembers.map(() => getRandomPosition());
-    
-    useEffect(() => {
-    const fetchData = async () => {
-        try {    
-        var allTeamMembersResponse = await getAllTeamMembersAsync();
-        setTeamMembers(allTeamMembersResponse);
-        }
-        catch (error) {
-        console.error('Error fetching tasks:', error);
-        }
-    }
-    
-    fetchData();
-    }, []);
+    const positions = users.map(() => getRandomPosition());
 
     return (
         <div className='task-visualisation'>
@@ -55,13 +48,13 @@ function TaskVisualisation() {
                 </svg>
 
                 {
-                    teamMembers.map((user, index) => {
+                    users.map((user, index) => {
                         const pos = positions[index];
-                        const size = 30 + 5 * 7;
+                        const size = 30 + user.tasks * 7;
 
                         return (
                             <div
-                                key={user.TeamMemberId}
+                                key={user.name}
                                 className="task-visualizer-circle"
                                 style={{
                                     position: "absolute",
@@ -80,7 +73,7 @@ function TaskVisualisation() {
                                     zIndex: 1
                                 }}
                             >
-                                {user.Name}
+                                {user.name}
                             </div>
                         );
                     })

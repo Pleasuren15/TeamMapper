@@ -8,7 +8,7 @@ function TaskInformation(props) {
         <h4>{props.title}</h4>
         <img src={logo} />
       </div>
-      <h3>{props.number}</h3>
+      <h3>89</h3>
       <p>Task Information</p>
     </div>
   );
