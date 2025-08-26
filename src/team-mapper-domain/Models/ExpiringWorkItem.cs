@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace team_mapper_domain.Models;
 
+[Table("tb_ExpiringWorkItem")]
 public class ExpiringWorkItem
 {
     [Key]
