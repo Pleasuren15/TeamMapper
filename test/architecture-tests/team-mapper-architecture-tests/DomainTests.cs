@@ -24,7 +24,6 @@ public class Tests
         result.IsSuccessful.Should().BeTrue();
     }
 
-
     [Test]
     public void GivenDomainAssembly_WhenNamingClasses_ThenShouldFollowPascalCase()
     {
