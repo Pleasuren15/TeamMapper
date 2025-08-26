@@ -29,7 +29,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "team-mapper-messaging-api",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "unit-tests", "unit-tests", "{69D98C21-B59B-44D2-880E-2059156C7D2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "team-mapper-messagin-api", "..\test\unit-tests\team-mapper-notification-api\team-mapper-notification-api\team-mapper-messaging-api.csproj", "{6D56F2FE-77E2-4B7F-9752-2A96E7364D5C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "team-mapper-messaging-api", "..\test\unit-tests\team-mapper-notification-api\team-mapper-notification-api\team-mapper-messaging-api.csproj", "{6D56F2FE-77E2-4B7F-9752-2A96E7364D5C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "architecture-tests", "architecture-tests", "{B9DE32F2-7F4A-4CCC-AA08-D753A5A1F73C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "team-mapper-architecture-tests", "..\test\architecture-tests\team-mapper-architecture-tests\team-mapper-architecture-tests.csproj", "{51A9E621-7135-495D-B491-F11F039D740B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +85,10 @@ Global
 		{6D56F2FE-77E2-4B7F-9752-2A96E7364D5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D56F2FE-77E2-4B7F-9752-2A96E7364D5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D56F2FE-77E2-4B7F-9752-2A96E7364D5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51A9E621-7135-495D-B491-F11F039D740B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51A9E621-7135-495D-B491-F11F039D740B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51A9E621-7135-495D-B491-F11F039D740B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51A9E621-7135-495D-B491-F11F039D740B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -97,6 +105,8 @@ Global
 		{C2BEC65A-C9E5-4C67-8BD6-61601E9743A9} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{69D98C21-B59B-44D2-880E-2059156C7D2A} = {9707812F-6E2D-4DDE-830E-B0A6AD276833}
 		{6D56F2FE-77E2-4B7F-9752-2A96E7364D5C} = {69D98C21-B59B-44D2-880E-2059156C7D2A}
+		{B9DE32F2-7F4A-4CCC-AA08-D753A5A1F73C} = {9707812F-6E2D-4DDE-830E-B0A6AD276833}
+		{51A9E621-7135-495D-B491-F11F039D740B} = {B9DE32F2-7F4A-4CCC-AA08-D753A5A1F73C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {594C1D85-993E-46B4-A2DA-083BDF429BA4}
