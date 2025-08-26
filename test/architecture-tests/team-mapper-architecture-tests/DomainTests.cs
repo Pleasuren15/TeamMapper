@@ -23,4 +23,21 @@ public class Tests
         // Assert
         result.IsSuccessful.Should().BeTrue();
     }
+
+
+    [Test]
+    public void GivenDomainAssembly_WhenNamingClasses_ThenShouldFollowPascalCase()
+    {
+        // Arrange
+        var domainAssembly = typeof(WorkItem).Assembly;
+
+        // Act
+        var result = Types.InAssembly(domainAssembly)
+            .Should()
+            .HaveNameMatching("^(?:[A-Z][a-z0-9]+)+$")
+            .GetResult();
+
+        // Assert
+        result.IsSuccessful.Should().BeTrue();
+    }
 }
