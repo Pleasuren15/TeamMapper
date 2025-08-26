@@ -29,7 +29,7 @@ public class GetAllWorkItemsTests
     {
         // Arrange
         var randomTasks = TaskResponseFactory.CreateTasks(5);
-        _tasksSubstitute.Repository.GetAllAsync(Arg.Any<Guid>(), Arg.Any<string>()).Returns(randomTasks);
+        _tasksSubstitute.TaskService.GetAllWorkItemsAsync(Arg.Any<Guid>()).Returns(randomTasks);
 
         // Act
         var results = await _systemUnderTest.GetAllTasksAsync();
@@ -44,7 +44,7 @@ public class GetAllWorkItemsTests
     public async Task GivenNoTasksExists_WhenCallingGetAllWorkItems_ThenShouldReturnEmptyList()
     {
         // Arrange
-        _tasksSubstitute.Repository.GetAllAsync(Arg.Any<Guid>(), Arg.Any<string>()).Returns([]);
+        _tasksSubstitute.TaskService.GetAllWorkItemsAsync(Arg.Any<Guid>()).Returns([]);
 
         // Act
         var results = await _systemUnderTest.GetAllTasksAsync();
@@ -59,7 +59,7 @@ public class GetAllWorkItemsTests
     public void GivenGetAllThrowsException_WhenCallingGetAllWorkItems_ThenShouldReturnInternalServerError()
     {
         // Arrange
-        _tasksSubstitute.Repository.GetAllAsync(Arg.Any<Guid>(), Arg.Any<string>()).ThrowsAsync(new Exception("Database error"));
+        _tasksSubstitute.TaskService.GetAllWorkItemsAsync(Arg.Any<Guid>()).ThrowsAsync(new Exception("Database error"));
 
         // Act
         var exception = Assert.ThrowsAsync<Exception>(async () => await _systemUnderTest.GetAllTasksAsync());

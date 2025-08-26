@@ -5,6 +5,8 @@ using team_mapper_api.Endpoints.Tasks;
 using team_mapper_application;
 using team_mapper_application.Interfaces;
 using team_mapper_infrastructure.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using team_mapper_infrastructure.Infrastructure;
 using team_mapper_infrastructure.RepositoryPattern;
 
 namespace team_mapper_shared_utilities.Substitutes;
@@ -18,6 +20,6 @@ public struct TasksSubstitute()
 
     public IWorkItemsManager TaskManager = Substitute.For<IWorkItemsManager>();
     public IWorkItemService TaskService = Substitute.For<IWorkItemService>();
-    public IRepository<team_mapper_domain.Models.WorkItem> Repository = Substitute.For<IRepository<team_mapper_domain.Models.WorkItem>>();
+    public ApplicationDbContext DbContext = Substitute.For<ApplicationDbContext>();
     public IPollyPolicyWrapper PollyPolicyWrapper = Substitute.For<IPollyPolicyWrapper>();
 }
