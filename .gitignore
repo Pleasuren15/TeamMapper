@@ -40,3 +40,4 @@ src/team-mapper-web/package-lock.json
 /test/unit-tests/team-mapper-notification-api/team-mapper-notification-api/bin/Debug/net9.0
 /test/unit-tests/team-mapper-notification-api/team-mapper-notification-api/obj
 /test/architecture-tests/team-mapper-architecture-tests/obj
+/test/architecture-tests/team-mapper-architecture-tests/bin/Debug/net9.0
