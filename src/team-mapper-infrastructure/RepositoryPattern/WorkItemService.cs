@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Logging;
 using team_mapper_domain.Models;
 using team_mapper_infrastructure.Infrastructure;
@@ -30,7 +31,7 @@ public class WorkItemService(
     {
         _logger.LogInformation("CreateWorkItemAsync Start: WorkItemId {@WorkItemId} CorrelationId {@CorrelationId}", workItem.WorkItemId, correlationId);
 
-        var entity = await _pollyPolicyWrapper.ExecuteWithPollyRetryPolicyAsync<Exception, Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<WorkItem>>(
+        var entity = await _pollyPolicyWrapper.ExecuteWithPollyRetryPolicyAsync<Exception, EntityEntry<WorkItem>>(
             async () => await _context.WorkItems.AddAsync(workItem));
         
         if (entity.State is EntityState.Added)

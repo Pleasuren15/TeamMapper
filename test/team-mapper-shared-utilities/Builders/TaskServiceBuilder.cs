@@ -26,7 +26,7 @@ public class TaskServiceBuilder
     public WorkItemService Build()
     {
         return new WorkItemService(
-            context: _dbContext ?? Substitute.For<ApplicationDbContext>(),
+            context: null,
             pollyPolicyWrapper: _pollyPolicyWrapper ?? Substitute.For<IPollyPolicyWrapper>(),
             logger: Substitute.For<ILogger<WorkItemService>>());
     }
