@@ -55,8 +55,7 @@ services:
         /opt/mssql/bin/sqlservr & 
         sleep 20 &&
         /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P YourStrong!Passw0rd -i /init.sql -C &&
-        tail -f /dev/null
-      "
+        tail -f /dev/null "
 
   team-mapper-rabbitmq:
     image: rabbitmq:3-management
@@ -66,3 +65,26 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
+
+  # localhost:6379,password=mypassword123
+  team-mapper-redis:
+    image: redis
+    command: redis-server --requirepass mypassword123
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    environment:
+      - REDIS_PASSWORD=mypassword123
+
+  team-mapper-redis-commander:
+    image: rediscommander/redis-commander:latest
+    hostname: redis-commander
+    ports:
+      - "8081:8081"
+    environment:
+      - REDIS_HOSTS=local:redis:6379:0:mypassword123
+    depends_on:
+      - redis
+    restart: unless-stopped

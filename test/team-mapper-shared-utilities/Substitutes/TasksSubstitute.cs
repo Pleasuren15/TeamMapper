@@ -20,6 +20,5 @@ public struct TasksSubstitute()
 
     public IWorkItemsManager TaskManager = Substitute.For<IWorkItemsManager>();
     public IWorkItemService TaskService = Substitute.For<IWorkItemService>();
-    public ApplicationDbContext DbContext = Substitute.For<ApplicationDbContext>();
     public IPollyPolicyWrapper PollyPolicyWrapper = Substitute.For<IPollyPolicyWrapper>();
 }

@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using team_mapper_domain.Models.Validations;
 
 namespace team_mapper_domain.Models;
 
+[Table("tb_TeamMember")]
 public class TeamMember
 {
     [Key]

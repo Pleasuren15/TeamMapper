@@ -21,6 +21,11 @@ builder.Services.AddScoped<IPollyPolicyWrapper, PollyPolicyWrapper>();
 builder.Services.AddScoped<IRabbitMqWrapper, RabbitMqWrapper>();
 builder.Services.AddScoped<IExpiringWorkItemsService, ExpiringWorkItemsService>();
 builder.Services.AddHostedService<ExpiringWorkItemsCronService>();
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetConnectionString("Redis");
+    options.InstanceName = "TeamMapperApi_";
+});
 
 var connectionString = builder.Configuration.GetConnectionString("TeamMapperDb");
 builder.Services.AddHealthChecks();
